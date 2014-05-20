@@ -1,0 +1,33 @@
+body, .ionic-body, .button {
+  letter-spacing: -1px;
+
+  // Force lowercase everywhere in the application
+  text-transform: lowercase;
+}
+
+// An underlay for the status bar
+.fade-bar {
+  height: 20px;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+  opacity: 0.5;
+  background-color: #fff;
+}
+
+.scroll-refresher .ionic-refresher-content,
+.bar .title {
+  text-align: left;
+}
+
+.item-icon-left .icon {
+  top: 2px; // Since everything is lowercase, it looks better this way
+  left: 22px;
+}
+
+.scroll-refresher .ionic-refresher-content {
+  .text-refreshing,
+  .text-pulling {
+    font-size: $font-size-base;
+  }
+}
