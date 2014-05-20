@@ -14,9 +14,9 @@ ionic platform add ios
 
 Now build the project by calling:
 
-```
+```bash
 ionic build ios
-````
+```
 
 Then open the Xcode project in the `platforms` folder and run the application.
 
