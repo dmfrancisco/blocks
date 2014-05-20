@@ -1,24 +1,10 @@
-/*
-To customize the look and feel of Ionic, you can override the variables
-in ionic's _variables.scss file.
-
-For example, you might change some of the default colors:
-
-$light:     #fff !default;
-$stable:    #f8f8f8 !default;
-$positive:  #4a87ee !default;
-$calm:      #43cee6 !default;
-$balanced:  #66cc33 !default;
-$energized: #f0b840 !default;
-$assertive: #ef4e3a !default;
-$royal:     #8a6de9 !default;
-*/
 @font-face {
   font-family: "Montserrat";
   src: url("../fonts/montserrat-regular-webfont.eot");
   src: url("../fonts/montserrat-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/montserrat-regular-webfont.woff") format("woff"), url("../fonts/montserrat-regular-webfont.ttf") format("truetype"), url("../fonts/montserrat-regular-webfont.svg#montserratregular") format("svg");
   font-weight: normal;
   font-style: normal; }
+/* Override default variables */
 /*!
   Ionicons, v1.4.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -27,8 +13,8 @@ $royal:     #8a6de9 !default;
 */
 @font-face {
   font-family: "Ionicons";
-  src: url("../lib/ionic/fonts/ionicons.eot?v=1.4.1");
-  src: url("../lib/ionic/fonts/ionicons.eot?v=1.4.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/ionicons.ttf?v=1.4.1") format("truetype"), url("../lib/ionic/fonts/ionicons.woff?v=1.4.1") format("woff"), url("../lib/ionic/fonts/ionicons.svg?v=1.4.1#Ionicons") format("svg");
+  src: url("../fonts/ionicons.eot?v=1.4.1");
+  src: url("../fonts/ionicons.eot?v=1.4.1#iefix") format("embedded-opentype"), url("../fonts/ionicons.ttf?v=1.4.1") format("truetype"), url("../fonts/ionicons.woff?v=1.4.1") format("woff"), url("../fonts/ionicons.svg?v=1.4.1#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal; }
 .ion, .ion-loading-a,
@@ -2689,7 +2675,7 @@ body.grade-c {
     bottom: 15px;
     left: 0;
     width: 100%;
-    color: #666666;
+    color: #d8d8d8;
     text-align: center;
     font-size: 30px; }
     .scroll-refresher .ionic-refresher-content .text-refreshing,
@@ -2745,7 +2731,7 @@ body.grade-c {
   bottom: 15px;
   left: 0;
   width: 100%;
-  color: #666666;
+  color: #d8d8d8;
   text-align: center;
   font-size: 30px; }
 
@@ -7375,8 +7361,10 @@ a.button {
   -webkit-transition: none !important;
   transition: none !important; }
 
-body {
-  letter-spacing: -1px;
+body, .ionic-body {
+  letter-spacing: -1px; }
+
+body, .ionic-body, .button {
   text-transform: lowercase; }
 
 .fade-bar {
@@ -7384,7 +7372,7 @@ body {
   width: 100%;
   position: fixed;
   z-index: 9999;
-  opacity: 0.7;
+  opacity: 0.5;
   background-color: #fff; }
 
 .scroll-refresher .ionic-refresher-content,
@@ -7399,14 +7387,20 @@ body {
 .scroll-refresher .ionic-refresher-content .text-pulling {
   font-size: 32px; }
 
-#home .scroll-refresher {
-  top: -95px;
+.button {
+  letter-spacing: -1px;
+  font-size: 26px; }
+
+/* Index view */
+#logs .scroll-refresher {
+  top: -90px;
   left: 54px; }
-#home .list {
-  margin-top: 40px; }
-#home .icon {
+#logs .list {
+  margin-top: 35px; }
+#logs .icon {
   color: #dc322f; }
 
+/* Show view */
 #log .bar {
   top: 40px;
   left: 20px;
@@ -7425,6 +7419,7 @@ body {
 #log .scroll {
   pointer-events: auto; }
 
+/* Calendar component */
 .day {
   height: 0;
   padding: 0;
@@ -7452,7 +7447,7 @@ body {
   background-color: #eeeeee; }
 .theme--example.theme-mode--dark .day {
   background-color: #586e75; }
-.theme--example .icon {
-  color: #839496; }
+.theme--example .close {
+  color: #839496 !important; }
 .theme--example .ion-record {
   color: #dc322f; }
