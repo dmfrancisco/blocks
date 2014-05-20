@@ -13,8 +13,8 @@
 */
 @font-face {
   font-family: "Ionicons";
-  src: url("../lib/ionic/fonts/ionicons.eot?v=1.4.1");
-  src: url("../lib/ionic/fonts/ionicons.eot?v=1.4.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/ionicons.ttf?v=1.4.1") format("truetype"), url("../lib/ionic/fonts/ionicons.woff?v=1.4.1") format("woff"), url("../lib/ionic/fonts/ionicons.svg?v=1.4.1#Ionicons") format("svg");
+  src: url("../fonts/ionicons.eot?v=1.4.1");
+  src: url("../fonts/ionicons.eot?v=1.4.1#iefix") format("embedded-opentype"), url("../fonts/ionicons.ttf?v=1.4.1") format("truetype"), url("../fonts/ionicons.woff?v=1.4.1") format("woff"), url("../fonts/ionicons.svg?v=1.4.1#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal; }
 .ion, .ion-loading-a,
@@ -2675,7 +2675,7 @@ body.grade-c {
     bottom: 15px;
     left: 0;
     width: 100%;
-    color: #666666;
+    color: #d8d8d8;
     text-align: center;
     font-size: 30px; }
     .scroll-refresher .ionic-refresher-content .text-refreshing,
@@ -2731,7 +2731,7 @@ body.grade-c {
   bottom: 15px;
   left: 0;
   width: 100%;
-  color: #666666;
+  color: #d8d8d8;
   text-align: center;
   font-size: 30px; }
 
@@ -7361,8 +7361,10 @@ a.button {
   -webkit-transition: none !important;
   transition: none !important; }
 
-body {
-  letter-spacing: -1px;
+body, .ionic-body {
+  letter-spacing: -1px; }
+
+body, .ionic-body, .button {
   text-transform: lowercase; }
 
 .fade-bar {
@@ -7385,12 +7387,16 @@ body {
 .scroll-refresher .ionic-refresher-content .text-pulling {
   font-size: 32px; }
 
+.button {
+  letter-spacing: -1px;
+  font-size: 26px; }
+
 /* Index view */
 #logs .scroll-refresher {
-  top: -95px;
+  top: -90px;
   left: 54px; }
 #logs .list {
-  margin-top: 40px; }
+  margin-top: 35px; }
 #logs .icon {
   color: #dc322f; }
 
@@ -7441,7 +7447,7 @@ body {
   background-color: #eeeeee; }
 .theme--example.theme-mode--dark .day {
   background-color: #586e75; }
-.theme--example .icon {
-  color: #839496; }
+.theme--example .close {
+  color: #839496 !important; }
 .theme--example .ion-record {
   color: #dc322f; }
