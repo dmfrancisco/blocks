@@ -1,24 +1,10 @@
-/*
-To customize the look and feel of Ionic, you can override the variables
-in ionic's _variables.scss file.
-
-For example, you might change some of the default colors:
-
-$light:     #fff !default;
-$stable:    #f8f8f8 !default;
-$positive:  #4a87ee !default;
-$calm:      #43cee6 !default;
-$balanced:  #66cc33 !default;
-$energized: #f0b840 !default;
-$assertive: #ef4e3a !default;
-$royal:     #8a6de9 !default;
-*/
 @font-face {
   font-family: "Montserrat";
   src: url("../fonts/montserrat-regular-webfont.eot");
   src: url("../fonts/montserrat-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/montserrat-regular-webfont.woff") format("woff"), url("../fonts/montserrat-regular-webfont.ttf") format("truetype"), url("../fonts/montserrat-regular-webfont.svg#montserratregular") format("svg");
   font-weight: normal;
   font-style: normal; }
+/* Override default variables */
 /*!
   Ionicons, v1.4.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -7384,7 +7370,7 @@ body {
   width: 100%;
   position: fixed;
   z-index: 9999;
-  opacity: 0.7;
+  opacity: 0.5;
   background-color: #fff; }
 
 .scroll-refresher .ionic-refresher-content,
@@ -7399,14 +7385,16 @@ body {
 .scroll-refresher .ionic-refresher-content .text-pulling {
   font-size: 32px; }
 
-#home .scroll-refresher {
+/* Index view */
+#logs .scroll-refresher {
   top: -95px;
   left: 54px; }
-#home .list {
+#logs .list {
   margin-top: 40px; }
-#home .icon {
+#logs .icon {
   color: #dc322f; }
 
+/* Show view */
 #log .bar {
   top: 40px;
   left: 20px;
@@ -7425,6 +7413,7 @@ body {
 #log .scroll {
   pointer-events: auto; }
 
+/* Calendar component */
 .day {
   height: 0;
   padding: 0;

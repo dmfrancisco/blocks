@@ -7,12 +7,12 @@ angular.module('logr', ['ionic'])
     abstract: true,
     templateUrl: "index.html"
   })
-  .state('app.home', {
-    url: "/home",
+  .state('app.logs', {
+    url: "/logs",
     views: {
       'main': {
-        templateUrl: "home.html",
-        controller: 'HomeController'
+        templateUrl: "logs.html",
+        controller: 'LogIndexController'
       }
     }
   })
@@ -26,12 +26,10 @@ angular.module('logr', ['ionic'])
     }
   });
 
-  $urlRouterProvider.otherwise("/app/home");
+  $urlRouterProvider.otherwise("/app/logs");
 })
 
-/**
- * The Logs factory handles saving and loading logs from local storage
- */
+// The Logs factory handles saving and loading logs from local storage
 .factory('Logs', function() {
   return {
     all: function() {
@@ -52,18 +50,7 @@ angular.module('logr', ['ionic'])
   }
 })
 
-.controller('HomeController', function($scope, $ionicModal, Logs) {
-  // Testing data
-  // $scope.logs = [
-  //   { title: "exercise" },
-  //   { title: "read" },
-  //   { title: "journal" },
-  //   { title: "23h" },
-  //   { title: "snooze" },
-  //   { title: "github" },
-  //   { title: "social" }
-  // ];
-
+.controller('LogIndexController', function($scope, $ionicModal, Logs) {
   // Load or initialize logs
   $scope.logs = Logs.all();
 
@@ -112,7 +99,7 @@ angular.module('logr', ['ionic'])
   }
 })
 
-// The fadeBar directive
+// Directive for an underlay for the status bar
 .directive('fadeBar', function($timeout) {
   return {
     restrict: 'E',
@@ -124,8 +111,8 @@ angular.module('logr', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+    // Hide the accessory bar by default (remove this to show the
+    // accessory bar above the keyboard for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -140,5 +127,5 @@ angular.module('logr', ['ionic'])
 document.addEventListener("deviceready", function() {
   setTimeout(function() {
     navigator.splashscreen.hide();
-  }, 2000);
+  }, 3000);
 }, false);
