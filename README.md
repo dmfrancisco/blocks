@@ -26,4 +26,4 @@ Watch changes made to the scss files by running the following watcher in the roo
 sass --watch scss:www/css
 ```
 
-To update the icons and splashscreen, move the files inside `www/res` to the appropriate directories.
+To update the icons and splashscreen, move the files inside `res` to the appropriate directories.
