@@ -1,3 +1,9 @@
+# Ignore files built by SASS
+www/css/
+
+# Ignore files built by ionic
+platforms/
+
 # ANDROID / ECLIPSE
 
 # built application files
