@@ -23,7 +23,7 @@ Then open the Xcode project in the `platforms` folder and run the application.
 Watch changes made to the scss files by running the following watcher in the root directory:
 
 ```bash
-sass --watch scss:www/css
+sass --watch scss/app.scss:www/css/app.css
 ```
 
 To update the icons and splashscreen, move the files inside `res` to the appropriate directories.
