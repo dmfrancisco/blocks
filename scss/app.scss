@@ -28,6 +28,11 @@
     border-radius: 4px;
     margin: 5px;
 
+    // Keep border-radius when the user drags the list
+    // (more info: http://stackoverflow.com/a/23735445/543293)
+    overflow: hidden;
+    -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+
     .platform-ios7 & {
       margin-top: 20px;
     }
