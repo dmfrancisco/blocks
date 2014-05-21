@@ -1,3 +1,7 @@
+html, body {
+  background: black;
+}
+
 body, .ionic-body, .button {
   letter-spacing: -1px;
 
@@ -11,23 +15,58 @@ body, .ionic-body, .button {
   width: 100%;
   position: fixed;
   z-index: 9999;
-  opacity: 0.5;
-  background-color: #fff;
+  opacity: 1;
+  background: black;
 }
 
-.scroll-refresher .ionic-refresher-content,
-.bar .title {
-  text-align: left;
+.bar, .list-inset, .item {
+  background-color: transparent;
+  border: none;
 }
 
-.item-icon-left .icon {
-  top: 2px; // Since everything is lowercase, it looks better this way
-  left: 22px;
+
+/* Custom slide in up animation for modals */
+
+.custom-swap-animation > .ng-enter,
+.custom-swap-animation > .ng-leave
+{
+  -webkit-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+}
+.custom-swap-animation:not(.reverse) .ng-leave,
+.custom-swap-animation.reverse .ng-enter.ng-enter-active {
+  -webkit-transform: scale(1);
+  opacity: 1;
+}
+.custom-swap-animation:not(.reverse) .ng-leave.ng-leave-active,
+.custom-swap-animation.reverse .ng-enter {
+  -webkit-transform: scale(0.5);
+  opacity: 0;
+}
+.custom-swap-animation:not(.reverse) .ng-enter,
+.custom-swap-animation.reverse .ng-leave.ng-leave-active {
+  -webkit-transform: translateY(150%);
+}
+.custom-swap-animation:not(.reverse) .ng-enter.ng-enter-active,
+.custom-swap-animation.reverse .ng-leave {
+  -webkit-transform: translateY(0);
 }
 
-.scroll-refresher .ionic-refresher-content {
-  .text-refreshing,
-  .text-pulling {
-    font-size: $font-size-base;
-  }
+
+/* Custom slide in up animation for modals */
+
+.custom-slide-in-up {
+  -webkit-transform: translate3d(0, 100%, 0);
+}
+.custom-slide-in-up.ng-enter,
+.custom-slide-in-up > .ng-enter {
+  -webkit-transition: all ease-out 400ms;
+}
+.custom-slide-in-up.ng-enter-active,
+.custom-slide-in-up > .ng-enter-active {
+  -webkit-transform: translate3d(0, 0, 0);
+}
+.custom-slide-in-up.ng-leave,
+.custom-slide-in-up > .ng-leave {
+  -webkit-transition: all ease-in-out 250ms;
+  opacity: 0;
 }

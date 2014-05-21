@@ -15,15 +15,55 @@
 /* Index view */
 
 #logs {
+  // This view should always be below the others, even during transitions
+  // Improves the reverse transition from the show view to the index view
+  z-index: 1;
+
+  // The view background is dark, but the content is light
+  // and add rounded edges to the screen
+  background-color: black;
+
+  .scroll-content {
+    background-color: white;
+    border-radius: 4px;
+    margin: 5px;
+    margin-top: 20px;
+  }
+
+  // The pull to add new button
+  .scroll-refresher .ionic-refresher-content {
+    .text-refreshing, .text-pulling {
+      font-size: 32px;
+    }
+  }
   .scroll-refresher {
-    top: -90px;
-    left: 54px;
+    top: -75px;
+    left: 68px;
   }
+
   .list {
-    margin-top: 35px;
+    margin-top: 20px;
   }
-  .icon {
-    color: $red;
+  .item {
+    border: none;
+    font-size: 32px;
+    line-height: 45px;
+  }
+  .item:active {
+    // Improves the responsiveness when the user taps
+    background: $base2;
+  }
+  .item-complex.item-icon-left .item-content {
+    background-color: transparent;
+    padding-left: 70px;
+  }
+  .scroll-refresher .ionic-refresher-content,
+  .bar .title {
+    text-align: left;
+  }
+  .item-icon-left .icon {
+    top: 2px; // Since everything is lowercase, it looks better this way
+    left: 30px;
   }
 }
 
@@ -31,6 +71,9 @@
 /* Show view */
 
 #log {
+  // This view must be above the index view, even during transitions
+  z-index: 2;
+
   .bar {
     top: 40px;
     left: 20px;
@@ -38,21 +81,54 @@
     border: transparent;
   }
   .bar .title + .button:last-child {
-    right: 45px;
+    // Replace the close icon
+    right: 40px;
   }
   .bar .title {
-    font-size: $font-size-small;
+    font-size: 26px;
+    text-align: left;
   }
   .has-header {
     top: 0;
     padding-top: 120px;
   }
+  .row {
+    // Fixes a strange mismatch between the right and left on the iPhone
+    // It may be related to the width being fluid (percentage)
+    padding: 0 4px 5px 4px;
+  }
   .scroll-content {
+    // Keep the calendar above the header
     z-index: 1000;
+
+    // Disable click events in order to be able to click the close icon
     pointer-events: none;
   }
   .scroll {
+    // Restore click events, only in the calendar
     pointer-events: auto;
+  }
+}
+
+
+/* New view */
+
+#new-log {
+  // The modal backdrop is transparent, but has a big dark shadow
+  box-shadow: 0 0 500px rgba(black, 0.8);
+
+  background: #eee;
+
+  // Add rounded edges to the modal
+  left: 5px;
+  right: 5px;
+  width: auto;
+  border-radius: 4px 4px 0 0;
+
+  // Move the rounded edges to below the status bar
+  top: 20px;
+  .bar-header {
+    top: -20px;
   }
 }
 
@@ -60,30 +136,59 @@
 /* Calendar component */
 
 .day {
+  // Make the cells square
   height: 0;
   padding: 0;
   padding-bottom: 14%;
 }
 
+// Light themes
 .theme-mode--light {
-  &, .fade-bar { background-color: $base3; }
-  .title { color: $dark; }
+  background-color: $base3;
+
+  .fade-bar {
+    background: transparent;
+    box-shadow: inset 0 10px 10px rgba($base3, 0.7);
+  }
+  .scroll {
+    // Simple shadow around the calendar to simulate a fading header on scroll
+    box-shadow: 0 0 30px $base3;
+  }
+  .title {
+    color: $dark;
+  }
 
   .day {
+    // Triangles
     @include linear-gradient(135deg, rgba($base3,0) 0%, rgba($base3,0) 50%,
       rgba($base3,0.3) 50%, rgba($base3,0.3) 100%);
   }
 }
+
+// Dark themes
 .theme-mode--dark {
-  &, .fade-bar { background-color: $base03; }
-  .title { color: $base3; }
+  background-color: $base03;
+
+  .fade-bar {
+    background: transparent;
+    box-shadow: inset 0 10px 10px rgba($base03, 0.7);
+  }
+  .scroll {
+    // Simple shadow around the calendar to simulate a fading header on scroll
+    box-shadow: 0 0 30px $base03;
+  }
+  .title {
+    color: $base3;
+  }
 
   .day {
+    // Triangles
     @include linear-gradient(135deg, rgba($base03,0) 0%, rgba($base03,0) 50%,
       rgba($base03,0.2) 50%, rgba($base03,0.2) 100%);
   }
 }
 
+// An example theme
 .theme--example {
   &.theme-mode--light .day {
     background-color: $base2;
@@ -94,7 +199,9 @@
   .close {
     color: $base0 !important;
   }
-  .ion-record {
-    color: $red;
-  }
+}
+
+// TODO Temporary color
+.dot {
+  color: $red !important;
 }

@@ -50,7 +50,7 @@ angular.module('logr', ['ionic'])
   }
 })
 
-.controller('LogIndexController', function($scope, $ionicModal, Logs) {
+.controller('LogIndexController', function($scope, $ionicModal, $timeout, Logs) {
   // Load or initialize logs
   $scope.logs = Logs.all();
 
@@ -59,7 +59,7 @@ angular.module('logr', ['ionic'])
     $scope.logModal = modal;
   }, {
     scope: $scope,
-    animation: 'slide-in-up'
+    animation: 'custom-slide-in-up'
   });
 
   // Called when the form is submitted
@@ -74,7 +74,10 @@ angular.module('logr', ['ionic'])
   // Open our new log modal
   $scope.newLog = function() {
     $scope.logModal.show();
-    $scope.$broadcast('scroll.refreshComplete');
+
+    $timeout(function() {
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 500);
   };
 
   // Close the new log modal
@@ -82,13 +85,13 @@ angular.module('logr', ['ionic'])
     $scope.logModal.hide();
   };
 
-  // Use the default statusbar (dark text, for light backgrounds)
+  // Use the lightContent statusbar (light text, for dark backgrounds)
   if (window.StatusBar) {
-    StatusBar.styleDefault();
+    StatusBar.styleLightContent();
   }
 })
 
-.controller('LogController', function($scope, $stateParams, $timeout, $ionicSlideBoxDelegate, Logs) {
+.controller('LogController', function($scope, $stateParams, $ionicSlideBoxDelegate, Logs) {
   $scope.activeLogIndex = $stateParams.id;
   $scope.logs = Logs.all();
   $scope.activeLog = $scope.logs[$scope.activeLogIndex];
@@ -117,7 +120,7 @@ angular.module('logr', ['ionic'])
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
-      StatusBar.styleDefault();
+      StatusBar.styleLightContent();
       StatusBar.show();
     }
   });
@@ -127,5 +130,5 @@ angular.module('logr', ['ionic'])
 document.addEventListener("deviceready", function() {
   setTimeout(function() {
     navigator.splashscreen.hide();
-  }, 3000);
+  }, 5000);
 }, false);

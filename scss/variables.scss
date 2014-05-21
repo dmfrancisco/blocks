@@ -34,19 +34,21 @@ $green:     #859900;
 
 /* Override default variables */
 
-$dark: #000 !default;
-$button-light-text: $dark !default;
-$scroll-refresh-icon-color: #d8d8d8 !default;
+// Colors
+$dark: #000;
+$button-light-text: $dark;
+$scroll-refresh-icon-color: #d8d8d8;
+$modal-backdrop-bg-active: transparent;
 
-$font-family-sans-serif: "Montserrat" !default;
+// Fonts
+$font-family-sans-serif: "Montserrat";
 
-$font-size-base:      32px !default;
-$font-size-large:     36px !default;
-$font-size-small:     26px !default;
-$button-font-size:    $font-size-base !default;
-$bar-title-font-size: $font-size-base !default;
-$item-font-size:      $font-size-base !default;
-$item-icon-font-size: 16px !default;
+// Font sizes
+$font-size-base:      17px;            // Changed from 14px
+$font-size-large:     19px;            // Changed from 18px
+$font-size-small:     14px;            // Changed from 11px
 
-$item-padding: 16px !default;
-$item-border-width: 0 !default;
+$button-font-size:    $font-size-base; // Changed from 16px
+$bar-title-font-size: $font-size-base; // Changed from 17px
+$item-font-size:      $font-size-base; // Changed from 16px
+$item-icon-font-size: 16px;            // Changed from 32px
