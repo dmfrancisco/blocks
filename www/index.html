@@ -37,10 +37,10 @@
             <ion-item ng-repeat="log in logs" href="#/app/log/{{$index}}" class="item-icon-left">
               <i class="icon ion-record dot"></i>
               {{log.title}}
-              <ion-option-button class="button-clear button-positive">
+              <ion-option-button class="button-clear button-positive" ng-click="updateLog(log)">
                 <i class="icon ion-edit"></i>
               </ion-option-button>
-              <ion-option-button class="button-clear button-assertive">
+              <ion-option-button class="button-clear button-assertive" ng-click="destroyLog(log)">
                 <i class="icon ion-android-trash"></i>
               </ion-option-button>
             </ion-item>

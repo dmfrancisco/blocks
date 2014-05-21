@@ -80,6 +80,17 @@ angular.module('logr', ['ionic'])
     }, 500);
   };
 
+  // Edit log
+  $scope.updateLog = function(log) {
+  };
+
+  // Destroy log
+  $scope.destroyLog = function(log) {
+    var index = $scope.logs.indexOf(log);
+    $scope.logs.splice(index, 1);
+    Logs.save($scope.logs);
+  };
+
   // Close the new log modal
   $scope.closeNewLog = function() {
     $scope.logModal.hide();
