@@ -27,7 +27,10 @@
     background-color: white;
     border-radius: 4px;
     margin: 5px;
-    margin-top: 20px;
+
+    .platform-ios7 & {
+      margin-top: 20px;
+    }
   }
 
   // The pull to add new button
@@ -115,7 +118,9 @@
 
 #new-log {
   // The modal backdrop is transparent, but has a big dark shadow
-  box-shadow: 0 0 500px rgba(black, 0.8);
+  .platform-ios7 & {
+    box-shadow: 0 0 500px rgba(black, 0.8);
+  }
 
   background: #eee;
 
@@ -126,9 +131,12 @@
   border-radius: 4px 4px 0 0;
 
   // Move the rounded edges to below the status bar
-  top: 20px;
-  .bar-header {
-    top: -20px;
+  top: 5px;
+  .platform-ios7 & {
+    top: 20px;
+    .bar-header {
+      top: -20px;
+    }
   }
 }
 

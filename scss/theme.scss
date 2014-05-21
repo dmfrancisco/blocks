@@ -10,7 +10,7 @@ body, .ionic-body, .button {
 }
 
 // An underlay for the status bar
-.fade-bar {
+.platform-ios7 .fade-bar {
   height: 20px;
   width: 100%;
   position: fixed;
@@ -68,5 +68,8 @@ body, .ionic-body, .button {
 .custom-slide-in-up.ng-leave,
 .custom-slide-in-up > .ng-leave {
   -webkit-transition: all ease-in-out 250ms;
-  opacity: 0;
+
+  .platform-ios7 & {
+    opacity: 0;
+  }
 }
