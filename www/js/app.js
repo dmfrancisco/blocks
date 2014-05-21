@@ -91,7 +91,7 @@ angular.module('logr', ['ionic'])
   }
 })
 
-.controller('LogController', function($scope, $stateParams, $ionicSlideBoxDelegate, Logs) {
+.controller('LogController', function($scope, $stateParams, Logs) {
   $scope.activeLogIndex = $stateParams.id;
   $scope.logs = Logs.all();
   $scope.activeLog = $scope.logs[$scope.activeLogIndex];
@@ -103,7 +103,7 @@ angular.module('logr', ['ionic'])
 })
 
 // Directive for an underlay for the status bar
-.directive('fadeBar', function($timeout) {
+.directive('fadeBar', function() {
   return {
     restrict: 'E',
     template: '<div class="fade-bar"></div>',

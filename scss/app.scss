@@ -52,19 +52,28 @@
     font-size: 32px;
     line-height: 45px;
   }
-  .item:active {
-    // Improves the responsiveness when the user taps
-    background: $base2;
-  }
   .item-complex.item-icon-left .item-content {
-    background-color: transparent;
     padding-left: 70px;
+    -webkit-transition: background 150ms !important;
+    box-shadow: 0 0 40px white;
+
+    &:active {
+      // Improves the responsiveness when the user taps (instead of using .activated)
+      background: $base2;
+    }
+  }
+  .item-options {
+    min-width: 120px;
+    text-align: right;
+  }
+  .item-options .button {
+    max-height: initial;
   }
   .scroll-refresher .ionic-refresher-content,
   .bar .title {
     text-align: left;
   }
-  .item-icon-left .icon {
+  .item-icon-left .dot {
     top: 2px; // Since everything is lowercase, it looks better this way
     left: 30px;
   }
@@ -137,6 +146,16 @@
     .bar-header {
       top: -20px;
     }
+  }
+
+  .title, .button {
+    padding-top: 1px; // Improve alignment (optional)
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    @include font-smoothing(antialiased);
+  }
+  .close {
+    color: black;
   }
 }
 
