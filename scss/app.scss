@@ -36,6 +36,9 @@
     // Using the .platform-ios7 class causes flickering
     margin-top: 20px;
   }
+  .scroll {
+    padding-bottom: 50px;
+  }
 
   // The pull to add new button
   .scroll-refresher .ionic-refresher-content {
@@ -103,6 +106,7 @@
   .bar .title {
     font-size: 26px;
     text-align: left;
+    margin-right: 30px; // Overflowing text will be replaced by ellipsis
   }
   .has-header {
     top: 0;
@@ -221,90 +225,76 @@
   height: 0;
   padding: 0;
   padding-bottom: 14%;
+  background-color: transparent !important;
 }
 
-// Light themes
-.theme-mode--light {
-  background-color: $base3;
-
+.theme {
   .fade-bar {
     background: transparent;
-    box-shadow: inset 0 10px 10px rgba($base3, 0.7);
+    box-shadow: inset 0 10px 10px;
   }
   .scroll {
     // Simple shadow around the calendar to simulate a fading header on scroll
-    box-shadow: 0 0 30px $base3;
-  }
-  .title {
-    color: $dark;
-  }
-
-  .day {
-    // Triangles
-    @include linear-gradient(135deg, rgba($base3,0) 0%, rgba($base3,0) 50%,
-      rgba($base3,0.3) 50%, rgba($base3,0.3) 100%);
+    box-shadow: 0 0 30px;
   }
 }
 
-// Dark themes
-.theme-mode--dark {
-  background-color: $base03;
-
-  .fade-bar {
-    background: transparent;
-    box-shadow: inset 0 10px 10px rgba($base03, 0.7);
-  }
-  .scroll {
-    // Simple shadow around the calendar to simulate a fading header on scroll
-    box-shadow: 0 0 30px $base03;
-  }
-  .title {
-    color: $base3;
-  }
-
-  .day {
-    // Triangles
-    @include linear-gradient(135deg, rgba($base03,0) 0%, rgba($base03,0) 50%,
-      rgba($base03,0.2) 50%, rgba($base03,0.2) 100%);
-  }
+@mixin triangle-gradient($color, $percent) {
+  @include linear-gradient(135deg, rgba($color,1) 0%, rgba($color,1) 50%,
+    rgba($color,$percent) 50%, rgba($color,$percent) 100%);
 }
 
-// An example theme
-.theme--example {
-  &.theme-mode--light .day {
-    background-color: $base2;
+@mixin theme($emptyColor, $color1, $color2, $color3, $color4, $color5, $dotColor, $titleColor, $closeColor, $bgdColor, $percent) {
+  &.theme, .scroll {
+    background-color: $bgdColor;
   }
-  &.theme-mode--dark .day {
-    background-color: $base01;
+  &.theme, .fade-bar {
+    color: $bgdColor; // Default color for the box shadows
   }
-  .close {
-    color: $base0 !important;
-  }
-}
 
-// TODO Temporary color
-.dot {
-  color: $red !important;
-}
-
-// TODO Color palettes
-.palette-example0,
-.palette-example1,
-.palette-example2,
-.palette-github {
   .color-1 {
-    background: #fafafa;
+    @include triangle-gradient($color1, $percent);
   }
   .color-2 {
-    background: #d6e685;
+    @include triangle-gradient($color2, $percent);
   }
   .color-3 {
-    background: #8cc665;
+    @include triangle-gradient($color3, $percent);
   }
   .color-4 {
-    background: #44a340;
+    @include triangle-gradient($color4, $percent);
   }
   .color-5 {
-    background: #1e6823;
+    @include triangle-gradient($color5, $percent);
   }
+
+  .color-bgd {
+    background-color: $bgdColor;
+  }
+  .dot {
+    color: $dotColor !important;
+  }
+  .close {
+    color: $closeColor !important;
+  }
+  .title {
+    color: $titleColor;
+  }
+}
+
+[data-theme="ruby"] {
+  @include theme(#586e75, #fff, #f2c0bf, #d98786, #d8514e, #dc322f, #dc322f, #fff, #839496, #002b36, 0.8);
+}
+
+[data-theme="purple"] {
+  @include theme(#7f8c8d, #fff, #be90d4, #9b59b6, #8e44ad, #6f229b, #8e44ad, #fff, #7f8c8d, #002b36, 0.8);
+}
+
+[data-theme="sulek"] {
+  @include theme(#586e75, #95a5a6, #f1c40f, #e67e22, #e74c3c, #d0021b, #f1c40f, #fff, #95a5a6, #2c3e50, 0.8);
+}
+
+[data-theme="octocat"] {
+  @include theme(#fafafa, #eee, #d6e685, #8cc665, #44a340, #1e6823, #44a340, #000, #000, #fff, 0.92);
+  #new-log & .color-1 { background: #ddd; }
 }

@@ -42,10 +42,10 @@ angular.module('logr', ['ionic'])
     save: function(logs) {
       window.localStorage['logs'] = angular.toJson(logs);
     },
-    newLog: function(logTitle, logPaletteId) {
+    newLog: function(logTitle, logThemeId) {
       return {
         title: logTitle,
-        paletteId: logPaletteId
+        themeId: logThemeId
       };
     }
   }
@@ -55,8 +55,8 @@ angular.module('logr', ['ionic'])
   // Load or initialize logs
   $scope.logs = Logs.all();
 
-  // Load palettes (for the new form)
-  $scope.palettes = Config.palettes;
+  // Load themes (for the new form)
+  $scope.themes = Config.themes;
 
   // Create and load the modal
   $ionicModal.fromTemplateUrl('new-log.html', function(modal) {
@@ -72,7 +72,7 @@ angular.module('logr', ['ionic'])
     if (!log.title) log.title = $scope.randomPlaceholder;
 
     // Create the log
-    var newLog = Logs.newLog(log.title, log.paletteId);
+    var newLog = Logs.newLog(log.title, log.themeId);
     $scope.logs.push(newLog);
     Logs.save($scope.logs);
 
@@ -87,7 +87,7 @@ angular.module('logr', ['ionic'])
 
     // Pre-fill the form fields
     $scope.randomPlaceholder = Config.genRandomPlaceholder();
-    $scope.log = { title: null, paletteId: Config.palettes[0].id }
+    $scope.log = { title: null, themeId: Config.themes[0].id }
 
     // This modal is called by the pull-to-refresh component.
     // To improve the animation, call complete after some delay
@@ -120,13 +120,19 @@ angular.module('logr', ['ionic'])
 })
 
 .controller('LogController', function($scope, $stateParams, Logs) {
-  $scope.activeLogIndex = $stateParams.id;
+  $scope.logIndex = $stateParams.id;
   $scope.logs = Logs.all();
-  $scope.activeLog = $scope.logs[$scope.activeLogIndex];
+  $scope.log = $scope.logs[$scope.logIndex];
 
   // Use the lightContent statusbar (light text, for dark backgrounds)
   if (window.StatusBar) {
-    StatusBar.styleLightContent();
+    var themeIsLight = Config.lightThemeIds.indexOf($scope.log.themeId) == -1;
+
+    if (themeIsLight) {
+      StatusBar.styleLightContent();
+    } else {
+      StatusBar.styleDefault();
+    }
   }
 })
 
@@ -164,8 +170,9 @@ document.addEventListener("deviceready", function() {
 
 
 // Configuration data
-window.Config = (function () {
+Config = (function () {
   var genericColorClasses = [
+    "color-bgd",
     "color-1",
     "color-2",
     "color-3",
@@ -173,24 +180,29 @@ window.Config = (function () {
     "color-5"
   ],
 
-  palettes = [
+  themes = [
     {
-      id: "example0",
+      id: "ruby",
+      title: "Ruby",
+      colorClasses: genericColorClasses
+    }, {
+      id: "purple",
       title: "Example",
       colorClasses: genericColorClasses
     }, {
-      id: "example1",
-      title: "Example",
+      id: "sulek",
+      title: "Sülek",
       colorClasses: genericColorClasses
     }, {
-      id: "example2",
-      title: "Example",
-      colorClasses: genericColorClasses
-    }, {
-      id: "github",
-      title: "GitHub",
+      id: "octocat",
+      title: "Octocat",
       colorClasses: genericColorClasses
     }
+  ],
+
+  // If the theme has a light background, a dark status bar will be used (iOS 7)
+  lightThemeIds = [
+    "github"
   ],
 
   titlePlaceholders = [
@@ -216,7 +228,8 @@ window.Config = (function () {
   }
 
   return {
-    palettes: palettes,
+    themes: themes,
+    lightThemeIds: lightThemeIds,
     genRandomPlaceholder: genRandomPlaceholder
   };
 }());
