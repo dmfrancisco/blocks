@@ -225,7 +225,13 @@
   height: 0;
   padding: 0;
   padding-bottom: 14%;
-  background-color: transparent !important;
+
+  span {
+    text-transform: uppercase;
+    padding-left: 7px;
+    opacity: 0.3;
+    font-size: 75%;
+  }
 }
 
 .theme {
@@ -233,7 +239,7 @@
     background: transparent;
     box-shadow: inset 0 10px 10px;
   }
-  .scroll {
+  .scroll .row:first-child {
     // Simple shadow around the calendar to simulate a fading header on scroll
     box-shadow: 0 0 30px;
   }
@@ -245,8 +251,11 @@
 }
 
 @mixin theme($emptyColor, $color1, $color2, $color3, $color4, $color5, $dotColor, $titleColor, $closeColor, $bgdColor, $percent) {
-  &.theme, .scroll {
+  &.theme {
     background-color: $bgdColor;
+  }
+  .day {
+    background-color: rgba($bgdColor, 0.5);
   }
   &.theme, .fade-bar {
     color: $bgdColor; // Default color for the box shadows
@@ -266,6 +275,9 @@
   }
   .color-5 {
     @include triangle-gradient($color5, $percent);
+  }
+  .color-1, .color-2, .color-3, .color-4, .color-5 {
+    background-color: $bgdColor !important;
   }
 
   .color-bgd {

@@ -134,6 +134,35 @@ angular.module('logr', ['ionic'])
       StatusBar.styleDefault();
     }
   }
+
+  $scope.formattedDate = function(dayOfWeek, weekNo) {
+    var date = Config.getDate(dayOfWeek, weekNo);
+    return date.format('YYYY-MM-DD');
+  }
+
+  $scope.dateTip = function(dayOfWeek, weekNo) {
+    var date = Config.getDate(dayOfWeek, weekNo);
+
+    if (date.format("D") == "1") {
+      return date.format("MMM");
+    } else if (date.day() == 1 && weekNo == 0) {
+      return "M";
+    } else if (date.day() == 3 && weekNo == 0) {
+      return "W";
+    } else if (date.day() == 5 && weekNo == 0) {
+      return "F";
+    }
+  }
+
+  $scope.getColor = function(log, dayOfWeek, weekNo) {
+    var date = Config.getDate(dayOfWeek, weekNo);
+
+    if (date > moment()) {
+      return "";
+    } else {
+      return "color-5";
+    }
+  }
 })
 
 // Directive for an underlay for the status bar
@@ -225,11 +254,16 @@ Config = (function () {
     }
     currentPlaceholderIndex = (currentPlaceholderIndex + 1) % titlePlaceholders.length;
     return titlePlaceholders[currentPlaceholderIndex];
+  },
+
+  getDate = function(dayOfWeek, weekNo) {
+    return moment().day(dayOfWeek - 7 * weekNo);
   }
 
   return {
     themes: themes,
     lightThemeIds: lightThemeIds,
-    genRandomPlaceholder: genRandomPlaceholder
+    genRandomPlaceholder: genRandomPlaceholder,
+    getDate: getDate
   };
 }());
