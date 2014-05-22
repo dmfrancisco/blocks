@@ -67,9 +67,5 @@ body, .ionic-body, .button {
 }
 .custom-slide-in-up.ng-leave,
 .custom-slide-in-up > .ng-leave {
-  -webkit-transition: all ease-in-out 250ms;
-
-  .platform-ios7 & {
-    opacity: 0;
-  }
+  -webkit-transition: all ease-in-out 400ms;
 }

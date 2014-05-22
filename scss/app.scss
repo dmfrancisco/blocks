@@ -25,17 +25,16 @@
 
   .scroll-content {
     background-color: white;
-    border-radius: 4px;
-    margin: 5px;
+    border-radius: 4px 4px 0 0;
 
     // Keep border-radius when the user drags the list
     // (more info: http://stackoverflow.com/a/23735445/543293)
     overflow: hidden;
     -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
 
-    .platform-ios7 & {
-      margin-top: 20px;
-    }
+    // TODO This should only be done for iOS7.
+    // Using the .platform-ios7 class causes flickering
+    margin-top: 20px;
   }
 
   // The pull to add new button
@@ -131,27 +130,31 @@
 /* New view */
 
 #new-log {
-  // The modal backdrop is transparent, but has a big dark shadow
-  .platform-ios7 & {
-    box-shadow: 0 0 500px rgba(black, 0.8);
+  &, .bar-header {
+    background: #eee;
+  }
+  .bar-header {
+    border-bottom: 1px solid #ddd;
   }
 
-  background: #eee;
-
-  // Add rounded edges to the modal
-  left: 5px;
-  right: 5px;
-  width: auto;
-  border-radius: 4px 4px 0 0;
-
   // Move the rounded edges to below the status bar
-  top: 5px;
   .platform-ios7 & {
     top: 20px;
     .bar-header {
       top: -20px;
     }
+    .scroll-content {
+      top: 44px;
+    }
   }
+
+  // Add rounded edges to the modal
+  border-radius: 4px 4px 0 0;
+
+  // Keep border-radius when the user drags the list
+  // (more info: http://stackoverflow.com/a/23735445/543293)
+  overflow: hidden;
+  -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
 
   .title, .button {
     padding-top: 1px; // Improve alignment (optional)
@@ -161,6 +164,74 @@
   }
   .close {
     color: black;
+  }
+  input {
+    font-size: 32px;
+    line-height: 36px;
+    height: auto;
+    background: transparent;
+  }
+  .placeholder-icon {
+    font-size: 23px;
+  }
+  .item-content {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .item, .item input {
+    padding-left: 13px;
+  }
+  .item-divider {
+    padding-left: 52px;
+    font-weight: normal;
+    color: #ccc;
+    letter-spacing: 0;
+  }
+  .item-radio {
+    .item-content {
+      padding-left: 37px;
+      padding-right: 0;
+    }
+    .item-content,
+    .item-radio input:checked ~ .item-content {
+      background: transparent;
+    }
+    .radio-icon {
+      // Display icon on the left instead of the right (default)
+      left: 0;
+    }
+    .row {
+      padding: 3px;
+
+      // Disable click events in order to be able to click the close icon
+      pointer-events: none;
+    }
+  }
+
+  .scroll {
+    // Minor improvement for the iPhone 5 screen (optional)
+    padding-top: 2px;
+  }
+
+  .color {
+    height: 37px;
+
+    // TODO Color palettes
+    &:nth-child(1) {
+      background: #fafafa;
+    }
+    &:nth-child(2) {
+      background: #d6e685;
+    }
+    &:nth-child(3) {
+      background: #8cc665;
+    }
+    &:nth-child(4) {
+      background: #44a340;
+    }
+    &:nth-child(5) {
+      background: #1e6823;
+    }
   }
 }
 

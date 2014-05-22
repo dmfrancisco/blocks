@@ -84,18 +84,46 @@
         <ion-content>
           <form ng-submit="createLog(log)">
             <div class="list list-inset">
+              <div class="item item-divider">
+                Give a name to the log
+              </div>
+
               <label class="item item-input">
                 <i class="icon ion-ios7-circle-outline placeholder-icon"></i>
-                <input type="text" placeholder="name" ng-model="log.title">
+                <input type="text" placeholder="name" ng-model="log.title" autocapitalize="off" autocorrect="off">
               </label>
-              <div class="item range range-positive">
-                <i class="icon ion-ios7-circle-outline placeholder-icon"></i>
-                <input type="range" name="colors" min="0" max="6" value="2" ng-model="log.scale">
+
+              <br />
+
+              <div class="item item-divider">
+                And choose a color palette
               </div>
+
+              <label class="item item-radio">
+                <input type="radio" name="group" checked>
+                <i class="radio-icon ion-record"></i>
+
+                <div class="item-content">
+                  <div class="row">
+                    <div class="col color" ng-repeat="i in [0,1,2,3,4]"></div>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item item-radio" ng-repeat="i in [0,1,2]">
+                <input type="radio" name="group">
+                <i class="radio-icon ion-record"></i>
+
+                <div class="item-content">
+                  <div class="row">
+                    <div class="col color" ng-repeat="i in [0,1,2,3,4]"></div>
+                  </div>
+                </div>
+              </label>
             </div>
 
             <div class="padding">
-              <button type="submit" class="button button-block button-outline button-positive">
+              <button type="submit" class="button button-block button-dark">
                 create
               </button>
             </div>
