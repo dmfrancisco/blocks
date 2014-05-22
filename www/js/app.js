@@ -42,9 +42,10 @@ angular.module('logr', ['ionic'])
     save: function(logs) {
       window.localStorage['logs'] = angular.toJson(logs);
     },
-    newLog: function(logTitle) {
+    newLog: function(logTitle, logPaletteId) {
       return {
-        title: logTitle
+        title: logTitle,
+        paletteId: logPaletteId
       };
     }
   }
@@ -54,7 +55,10 @@ angular.module('logr', ['ionic'])
   // Load or initialize logs
   $scope.logs = Logs.all();
 
-  // Create and load the Modal
+  // Load palettes (for the new form)
+  $scope.palettes = Config.palettes;
+
+  // Create and load the modal
   $ionicModal.fromTemplateUrl('new-log.html', function(modal) {
     $scope.logModal = modal;
   }, {
@@ -64,17 +68,29 @@ angular.module('logr', ['ionic'])
 
   // Called when the form is submitted
   $scope.createLog = function(log) {
-    var newLog = Logs.newLog(log.title);
+    // If the user didn't filled the title, use the placeholder value
+    if (!log.title) log.title = $scope.randomPlaceholder;
+
+    // Create the log
+    var newLog = Logs.newLog(log.title, log.paletteId);
     $scope.logs.push(newLog);
-    $scope.logModal.hide();
     Logs.save($scope.logs);
-    log.title = "";
+
+    // Hide the modal
+    $scope.logModal.hide();
   };
 
-  // Open our new log modal
+  // Open the new log modal
   $scope.newLog = function() {
+    // Display the modal
     $scope.logModal.show();
 
+    // Pre-fill the form fields
+    $scope.randomPlaceholder = Config.genRandomPlaceholder();
+    $scope.log = { title: null, paletteId: Config.palettes[0].id }
+
+    // This modal is called by the pull-to-refresh component.
+    // To improve the animation, call complete after some delay
     $timeout(function() {
       $scope.$broadcast('scroll.refreshComplete');
     }, 500);
@@ -82,6 +98,7 @@ angular.module('logr', ['ionic'])
 
   // Edit log
   $scope.updateLog = function(log) {
+    // TODO
   };
 
   // Destroy log
@@ -130,6 +147,7 @@ angular.module('logr', ['ionic'])
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
+
     if (window.StatusBar) {
       StatusBar.styleLightContent();
       StatusBar.show();
@@ -143,3 +161,62 @@ document.addEventListener("deviceready", function() {
     navigator.splashscreen.hide();
   }, 5000);
 }, false);
+
+
+// Configuration data
+window.Config = (function () {
+  var genericColorClasses = [
+    "color-1",
+    "color-2",
+    "color-3",
+    "color-4",
+    "color-5"
+  ],
+
+  palettes = [
+    {
+      id: "example0",
+      title: "Example",
+      colorClasses: genericColorClasses
+    }, {
+      id: "example1",
+      title: "Example",
+      colorClasses: genericColorClasses
+    }, {
+      id: "example2",
+      title: "Example",
+      colorClasses: genericColorClasses
+    }, {
+      id: "github",
+      title: "GitHub",
+      colorClasses: genericColorClasses
+    }
+  ],
+
+  titlePlaceholders = [
+    "exercise",
+    "read",
+    "journal",
+    "steps",
+    "sleep time",
+    "pomodoros",
+    "cash spent",
+    "cups of water"
+  ],
+
+  currentPlaceholderIndex = 0,
+
+  // This method returns a random placeholder with repeating the values
+  genRandomPlaceholder = function() {
+    if (currentPlaceholderIndex == 0) {
+      titlePlaceholders.sort(function() { return 0.5 - Math.random() });
+    }
+    currentPlaceholderIndex = (currentPlaceholderIndex + 1) % titlePlaceholders.length;
+    return titlePlaceholders[currentPlaceholderIndex];
+  }
+
+  return {
+    palettes: palettes,
+    genRandomPlaceholder: genRandomPlaceholder
+  };
+}());

@@ -162,9 +162,6 @@
     letter-spacing: 1px;
     @include font-smoothing(antialiased);
   }
-  .close {
-    color: black;
-  }
   input {
     font-size: 32px;
     line-height: 36px;
@@ -207,31 +204,12 @@
       pointer-events: none;
     }
   }
-
+  .color {
+    height: 37px;
+  }
   .scroll {
     // Minor improvement for the iPhone 5 screen (optional)
     padding-top: 2px;
-  }
-
-  .color {
-    height: 37px;
-
-    // TODO Color palettes
-    &:nth-child(1) {
-      background: #fafafa;
-    }
-    &:nth-child(2) {
-      background: #d6e685;
-    }
-    &:nth-child(3) {
-      background: #8cc665;
-    }
-    &:nth-child(4) {
-      background: #44a340;
-    }
-    &:nth-child(5) {
-      background: #1e6823;
-    }
   }
 }
 
@@ -307,4 +285,26 @@
 // TODO Temporary color
 .dot {
   color: $red !important;
+}
+
+// TODO Color palettes
+.palette-example0,
+.palette-example1,
+.palette-example2,
+.palette-github {
+  .color-1 {
+    background: #fafafa;
+  }
+  .color-2 {
+    background: #d6e685;
+  }
+  .color-3 {
+    background: #8cc665;
+  }
+  .color-4 {
+    background: #44a340;
+  }
+  .color-5 {
+    background: #1e6823;
+  }
 }

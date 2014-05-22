@@ -77,46 +77,37 @@
       <div id="new-log" class="modal">
         <ion-header-bar class="bar-secondary">
           <h1 class="title">add new</h1>
-          <button class="button button-clear button-positive button-icon ion-close-circled close"
+          <button class="button button-clear button-dark button-icon ion-close-circled"
             ng-click="closeNewLog()"></button>
         </ion-header-bar>
 
         <ion-content>
           <form ng-submit="createLog(log)">
             <div class="list list-inset">
+
+              <!-- Name -->
               <div class="item item-divider">
                 Give a name to the log
               </div>
-
               <label class="item item-input">
                 <i class="icon ion-ios7-circle-outline placeholder-icon"></i>
-                <input type="text" placeholder="name" ng-model="log.title" autocapitalize="off" autocorrect="off">
+                <input type="text" placeholder="{{randomPlaceholder}}" ng-model="log.title"
+                  autocapitalize="off" autocorrect="off">
               </label>
 
               <br />
 
+              <!-- Colors -->
               <div class="item item-divider">
                 And choose a color palette
               </div>
-
-              <label class="item item-radio">
-                <input type="radio" name="group" checked>
+              <label class="item item-radio" ng-repeat="palette in palettes">
+                <input type="radio" name="group" ng-model="log.paletteId" ng-value="palette.id">
                 <i class="radio-icon ion-record"></i>
-
                 <div class="item-content">
-                  <div class="row">
-                    <div class="col color" ng-repeat="i in [0,1,2,3,4]"></div>
-                  </div>
-                </div>
-              </label>
-
-              <label class="item item-radio" ng-repeat="i in [0,1,2]">
-                <input type="radio" name="group">
-                <i class="radio-icon ion-record"></i>
-
-                <div class="item-content">
-                  <div class="row">
-                    <div class="col color" ng-repeat="i in [0,1,2,3,4]"></div>
+                  <div class="row palette palette-{{palette.id}}">
+                    <div class="col color {{colorClass}}"
+                      ng-repeat="colorClass in palette.colorClasses"></div>
                   </div>
                 </div>
               </label>
@@ -124,7 +115,7 @@
 
             <div class="padding">
               <button type="submit" class="button button-block button-dark">
-                create
+                Create
               </button>
             </div>
           </form>
