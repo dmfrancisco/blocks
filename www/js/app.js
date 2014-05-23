@@ -137,7 +137,9 @@ angular.module('logr', ['ionic'])
   $scope.dateTip = function(dayOfWeek, weekNo) {
     var date = Config.getDate(dayOfWeek, weekNo);
 
-    if (date.format("D") == "1") {
+    if (date.format("D") == "1" && date.format("M") == "1") {
+      return date.format("YYYY");
+    } else if (date.format("D") == "1") {
       return date.format("MMM");
     } else if (date.day() == 1 && weekNo == 0) {
       return "M";
@@ -157,6 +159,20 @@ angular.module('logr', ['ionic'])
       date = date.format('YYYY-MM-DD');
       return "color-" + ($scope.log.values[date] || 0); // TODO
     }
+  }
+
+  $scope.weeks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  $scope.weekdays = [0,1,2,3,4,5,6];
+  $scope.hasMoreData = true;
+
+  $scope.loadMore = function() {
+    for (var i = 0; i < 8; i++) {
+      $scope.weeks.push($scope.weeks.length);
+    }
+    if ($scope.weeks.length >= 336) {
+      $scope.hasMoreData = false;
+    }
+    $scope.$broadcast('scroll.infiniteScrollComplete');
   }
 
   // Use the lightContent statusbar (light text, for dark backgrounds)

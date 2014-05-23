@@ -257,7 +257,7 @@
   .day {
     background-color: rgba($bgdColor, 0.5);
   }
-  &.theme, .fade-bar {
+  &.theme, .fade-bar, .icon-refreshing {
     color: $bgdColor; // Default color for the box shadows
   }
 
