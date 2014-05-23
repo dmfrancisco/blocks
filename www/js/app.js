@@ -42,10 +42,11 @@ angular.module('logr', ['ionic'])
     save: function(logs) {
       window.localStorage['logs'] = angular.toJson(logs);
     },
-    newLog: function(logTitle, logThemeId) {
+    newLog: function(logTitle, logThemeId, logValues) {
       return {
         title: logTitle,
-        themeId: logThemeId
+        themeId: logThemeId,
+        values: (logValues || {})
       };
     }
   }
@@ -119,25 +120,18 @@ angular.module('logr', ['ionic'])
   }
 })
 
-.controller('LogController', function($scope, $stateParams, Logs) {
+.controller('LogController', function($scope, $stateParams, $timeout, Logs) {
   $scope.logIndex = $stateParams.id;
   $scope.logs = Logs.all();
   $scope.log = $scope.logs[$scope.logIndex];
 
-  // Use the lightContent statusbar (light text, for dark backgrounds)
-  if (window.StatusBar) {
-    var themeIsLight = Config.lightThemeIds.indexOf($scope.log.themeId) == -1;
-
-    if (themeIsLight) {
-      StatusBar.styleLightContent();
-    } else {
-      StatusBar.styleDefault();
-    }
-  }
-
-  $scope.formattedDate = function(dayOfWeek, weekNo) {
+  $scope.setValue = function(dayOfWeek, weekNo) {
     var date = Config.getDate(dayOfWeek, weekNo);
-    return date.format('YYYY-MM-DD');
+    date = date.format('YYYY-MM-DD');
+
+    $scope.log.values[date] = $scope.log.values[date] || 0;
+    $scope.log.values[date] = ($scope.log.values[date] + 1) % 6;
+    Logs.save($scope.logs);
   }
 
   $scope.dateTip = function(dayOfWeek, weekNo) {
@@ -154,13 +148,25 @@ angular.module('logr', ['ionic'])
     }
   }
 
-  $scope.getColor = function(log, dayOfWeek, weekNo) {
+  $scope.getColor = function(dayOfWeek, weekNo) {
     var date = Config.getDate(dayOfWeek, weekNo);
 
     if (date > moment()) {
       return "";
     } else {
-      return "color-5";
+      date = date.format('YYYY-MM-DD');
+      return "color-" + ($scope.log.values[date] || 0); // TODO
+    }
+  }
+
+  // Use the lightContent statusbar (light text, for dark backgrounds)
+  if (window.StatusBar) {
+    var themeIsLight = Config.lightThemeIds.indexOf($scope.log.themeId) == -1;
+
+    if (themeIsLight) {
+      StatusBar.styleLightContent();
+    } else {
+      $timeout(StatusBar.styleDefault, 400);
     }
   }
 })
@@ -231,7 +237,7 @@ Config = (function () {
 
   // If the theme has a light background, a dark status bar will be used (iOS 7)
   lightThemeIds = [
-    "github"
+    "octocat"
   ],
 
   titlePlaceholders = [

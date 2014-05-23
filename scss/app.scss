@@ -261,6 +261,9 @@
     color: $bgdColor; // Default color for the box shadows
   }
 
+  .color-0 {
+    @include triangle-gradient($emptyColor, $percent);
+  }
   .color-1 {
     @include triangle-gradient($color1, $percent);
   }
@@ -299,7 +302,7 @@
 }
 
 [data-theme="purple"] {
-  @include theme(#7f8c8d, #fff, #be90d4, #9b59b6, #8e44ad, #6f229b, #8e44ad, #fff, #7f8c8d, #002b36, 0.8);
+  @include theme(#aeaea9, #fff, #c29ed4, #9b6aaf, #8e44ad, #6f229b, #8e44ad, #fff, #aeaea9, #443737, 0.8);
 }
 
 [data-theme="sulek"] {
@@ -308,5 +311,5 @@
 
 [data-theme="octocat"] {
   @include theme(#fafafa, #eee, #d6e685, #8cc665, #44a340, #1e6823, #44a340, #000, #000, #fff, 0.92);
-  #new-log & .color-1 { background: #ddd; }
+  #new-log & .color-1 { @include triangle-gradient(#f0f0f0, 0.6); }
 }
