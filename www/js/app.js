@@ -52,7 +52,7 @@ angular.module('logr', ['ionic'])
   }
 })
 
-.controller('LogIndexController', function($scope, $ionicModal, $timeout, Logs) {
+.controller('LogIndexController', function($scope, $ionicModal, $ionicActionSheet, $timeout, Logs) {
   // Load or initialize logs
   $scope.logs = Logs.all();
 
@@ -104,9 +104,16 @@ angular.module('logr', ['ionic'])
 
   // Destroy log
   $scope.destroyLog = function(log) {
-    var index = $scope.logs.indexOf(log);
-    $scope.logs.splice(index, 1);
-    Logs.save($scope.logs);
+    $ionicActionSheet.show({
+      destructiveText: 'Remove <strong>'+ log.title.toLowerCase() +'</strong> log',
+      cancelText: 'Cancel',
+      destructiveButtonClicked: function() {
+        var index = $scope.logs.indexOf(log);
+        $scope.logs.splice(index, 1);
+        Logs.save($scope.logs);
+        return true;
+      }
+    })
   };
 
   // Close the new log modal

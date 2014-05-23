@@ -25,6 +25,18 @@ body, .ionic-body, .button {
 }
 
 
+/* Action sheets */
+.action-sheet {
+  margin-bottom: 10px;
+}
+.action-sheet-group {
+  border-bottom-left-radius: 4px;
+  .button {
+    text-transform: none;
+  }
+}
+
+
 /* Custom slide in up animation for modals */
 
 .custom-swap-animation > .ng-enter,
