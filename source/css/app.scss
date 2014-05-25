@@ -25,16 +25,17 @@
 
   .scroll-content {
     background-color: white;
-    border-radius: 4px 4px 0 0;
 
-    // Keep border-radius when the user drags the list
-    // (more info: http://stackoverflow.com/a/23735445/543293)
-    overflow: hidden;
-    -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+    // Using the .platform-ios7 class causes flickering :/
+    .platform-ios7 & {
+      border-radius: 4px 4px 0 0;
+      margin-top: 20px;
 
-    // TODO This should only be done for iOS7.
-    // Using the .platform-ios7 class causes flickering
-    margin-top: 20px;
+      // Keep border-radius when the user drags the list
+      // (more info: http://stackoverflow.com/a/23735445/543293)
+      overflow: hidden;
+      -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+    }
   }
   .scroll {
     padding-bottom: 50px;
@@ -61,7 +62,7 @@
   }
   .item-complex.item-icon-left .item-content {
     padding-left: 70px;
-    -webkit-transition: background 150ms !important;
+    @include transition(background 150ms !important);
     box-shadow: 0 0 40px white;
 
     &:active {
@@ -318,69 +319,38 @@
 /* Animations for list items */
 
 .log-item.ng-enter {
-  -webkit-animation: 0.5s bounceIn;
-  animation: 0.5s bounceIn;
+  @include animation(0.5s bounceIn);
 }
 
-@-webkit-keyframes bounceIn {
+@include keyframes(bounceIn) {
   0% {
     opacity: 0;
-    -webkit-transform: scale(.3);
+    @include transform(scale(.3));
   }
   50% {
     opacity: 1;
-    -webkit-transform: scale(1.05);
+    @include transform(scale(1.05));
   }
   70% {
-    -webkit-transform: scale(.9);
+    @include transform(scale(.9));
   }
   100% {
     opacity: 1;
-    -webkit-transform: scale(1);
-  }
-}
-
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: scale(.3);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
+    @include transform(scale(1));
   }
 }
 
 .log-item.ng-leave {
-  -webkit-animation: 0.5s fadeOutLeftBig;
-  animation: 0.5s fadeOutLeftBig;
+  @include animation(0.5s fadeOutLeftBig);
 }
 
-@-webkit-keyframes fadeOutLeftBig {
+@include keyframes(fadeOutLeftBig) {
   0% {
     opacity: 1;
-    -webkit-transform: translateX(0);
+    @include transform(translateX(0));
   }
   100% {
     opacity: 0;
-    -webkit-transform: translateX(-2000px);
-  }
-}
-
-@keyframes fadeOutLeftBig {
-  0% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-2000px);
+    @include transform(translateX(-2000px));
   }
 }
