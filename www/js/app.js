@@ -77,6 +77,8 @@ angular.module('logr', ['ionic'])
     $scope.logs.push(newLog);
     Logs.save($scope.logs);
 
+    Config.sounds.created.play();
+
     // Hide the modal
     $scope.logModal.hide();
   };
@@ -111,6 +113,8 @@ angular.module('logr', ['ionic'])
         var index = $scope.logs.indexOf(log);
         $scope.logs.splice(index, 1);
         Logs.save($scope.logs);
+
+        Config.sounds.destroyed.play();
         return true;
       }
     })
@@ -263,6 +267,11 @@ Config = (function () {
     "octocat"
   ],
 
+  sounds = {
+    created: new Audio("sounds/qurazy_quoin.mp3"),
+    destroyed: new Audio("sounds/friend_exits.mp3"),
+  },
+
   titlePlaceholders = [
     "exercise",
     "read",
@@ -293,6 +302,7 @@ Config = (function () {
     themes: themes,
     lightThemeIds: lightThemeIds,
     genRandomPlaceholder: genRandomPlaceholder,
-    getDate: getDate
+    getDate: getDate,
+    sounds: sounds
   };
 }());

@@ -310,6 +310,77 @@
 }
 
 [data-theme="octocat"] {
-  @include theme(#fafafa, #eee, #d6e685, #8cc665, #44a340, #1e6823, #44a340, #000, #000, #fff, 0.92);
+  @include theme(#efefef, #ddd, #d6e685, #8cc665, #44a340, #1e6823, #44a340, #000, #000, #fff, 0.8);
   #new-log & .color-1 { @include triangle-gradient(#f0f0f0, 0.6); }
+}
+
+
+/* Animations for list items */
+
+.log-item.ng-enter {
+  -webkit-animation: 0.5s bounceIn;
+  animation: 0.5s bounceIn;
+}
+
+@-webkit-keyframes bounceIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(.3);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+  }
+  70% {
+    -webkit-transform: scale(.9);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.log-item.ng-leave {
+  -webkit-animation: 0.5s fadeOutLeftBig;
+  animation: 0.5s fadeOutLeftBig;
+}
+
+@-webkit-keyframes fadeOutLeftBig {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+  }
+}
+
+@keyframes fadeOutLeftBig {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-2000px);
+  }
 }
