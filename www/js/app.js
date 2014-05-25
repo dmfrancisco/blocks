@@ -177,7 +177,7 @@ angular.module('logr', ['ionic'])
   $scope.hasMoreData = true;
 
   $scope.loadMore = function() {
-    for (var i = 0; i < 8; i++) {
+    for (var i = 0; i < 16; i++) {
       $scope.weeks.push($scope.weeks.length);
     }
     if ($scope.weeks.length >= 336) {
