@@ -107,7 +107,7 @@ angular.module('logr', ['ionic'])
   // Destroy log
   $scope.destroyLog = function(log) {
     $ionicActionSheet.show({
-      destructiveText: 'Remove <strong>'+ log.title.toLowerCase() +'</strong> log',
+      destructiveText: 'Remove &nbsp;<strong>'+ log.title.toLowerCase() +'</strong>',
       cancelText: 'Cancel',
       destructiveButtonClicked: function() {
         var index = $scope.logs.indexOf(log);
