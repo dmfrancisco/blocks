@@ -2,11 +2,11 @@
 @import "variables";
 
 // Include all of Ionic
-@import "lib/ionic/ionic";
+@import "vendor/ionic/ionic";
 
 // Include Bourbon, a simple and lightweight mixin library
 // Run `gem install bourbon` and `bourbon install`
-@import "lib/bourbon/bourbon";
+@import "vendor/bourbon/bourbon";
 
 // Custom theme for Ionic
 @import "theme";
