@@ -7,8 +7,8 @@ Good for quantified-self researchers.
 To initialize the project, run:
 
 ```bash
-npm install -g ionic cordova
-gem install sass
+npm install -g ionic cordova gulp
+npm install
 ionic platform add ios
 ```
 
@@ -23,7 +23,7 @@ Then open the Xcode project in the `platforms` folder and run the application.
 Watch changes made to the scss files by running the following watcher in the root directory:
 
 ```bash
-sass --watch scss/app.scss:www/css/app.css --style compressed
+gulp watch
 ```
 
 To update the icons and splashscreen, move the files inside `res` to the appropriate directories.
