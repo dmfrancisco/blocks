@@ -1,6 +1,5 @@
-# Ignore files built by SASS
-www/css/app.css
-www/js/app.js
+# Ignore files built by precompilers
+www/
 
 # Ignore files built by ionic
 platforms/

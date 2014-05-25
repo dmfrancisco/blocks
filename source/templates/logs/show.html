@@ -1,0 +1,23 @@
+<!-- Log show view -->
+<ion-view id="log" class="theme" data-theme="{{log.themeId}}">
+  <!-- Translucid background for the status bar (iOS) -->
+  <fade-bar></fade-bar>
+
+  <ion-header-bar>
+    <a href="#" class="button button-icon icon ion-record dot"></a>
+    <h1 class="title">{{log.title}}</h1>
+    <a href="#/app/home" class="button button-icon ion-android-close close"></a>
+  </ion-header-bar>
+
+  <ion-content class="padding">
+    <div class="row" ng-repeat="noWeek in weeks">
+      <div class="col day {{getColor(dayOfWeek, noWeek)}}" ng-repeat="dayOfWeek in weekdays"
+        ng-click="setValue(dayOfWeek, noWeek)">
+          <span>{{dateTip(dayOfWeek, noWeek)}}</span>
+      </div>
+    </div>
+
+    <ion-infinite-scroll on-infinite="loadMore()" ng-if="hasMoreData">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

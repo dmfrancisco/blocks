@@ -13,14 +13,14 @@ Application.config ($stateProvider, $urlRouterProvider) ->
     url: "/logs"
     views:
       main:
-        templateUrl: "logs.html"
+        templateUrl: "logs/index.html"
         controller: "LogIndexController"
 
   $stateProvider.state "app.log",
     url: "/log/:id"
     views:
       main:
-        templateUrl: "log.html"
+        templateUrl: "logs/show.html"
         controller: "LogController"
 
   $urlRouterProvider.otherwise("/app/logs")

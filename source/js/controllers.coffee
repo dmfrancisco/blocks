@@ -6,7 +6,7 @@ Application.controller "LogIndexController", ($scope, $ionicModal, $ionicActionS
   $scope.themes = Config.themes
 
   # Create and load the modal
-  $ionicModal.fromTemplateUrl("new-log.html", ((modal) ->
+  $ionicModal.fromTemplateUrl("logs/new.html", ((modal) ->
       $scope.logModal = modal
     ),
     scope: $scope
@@ -105,12 +105,12 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
 
   $scope.loadMore = ->
     for i in [0..16]
-      $scope.weeks.push $scope.weeks.length
+      $scope.weeks.push($scope.weeks.length)
 
     if $scope.weeks.length >= 336
       $scope.hasMoreData = false
 
-    $scope.$broadcast "scroll.infiniteScrollComplete"
+    $scope.$broadcast("scroll.infiniteScrollComplete")
 
   # Use the lightContent statusbar (light text, for dark backgrounds)
   if window.StatusBar

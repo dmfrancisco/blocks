@@ -8,6 +8,7 @@
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
     "gulp-coffee": "^1.4.3",
-    "gulp-uglify": "^0.3.0"
+    "gulp-uglify": "^0.3.0",
+    "gulp-angular-templatecache": "^1.1.3"
   }
 }
