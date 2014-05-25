@@ -1,0 +1,84 @@
+/* Custom swap animation for view change */
+
+.custom-swap-animation > .ng-enter,
+.custom-swap-animation > .ng-leave
+{
+  @include transition(all 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000));
+}
+.custom-swap-animation:not(.reverse) .ng-leave,
+.custom-swap-animation.reverse .ng-enter.ng-enter-active {
+  @include transform(scale(1));
+  opacity: 1;
+}
+.custom-swap-animation:not(.reverse) .ng-leave.ng-leave-active,
+.custom-swap-animation.reverse .ng-enter {
+  @include transform(scale(0.5));
+  opacity: 0;
+}
+.custom-swap-animation:not(.reverse) .ng-enter,
+.custom-swap-animation.reverse .ng-leave.ng-leave-active {
+  @include transform(translateY(150%));
+}
+.custom-swap-animation:not(.reverse) .ng-enter.ng-enter-active,
+.custom-swap-animation.reverse .ng-leave {
+  @include transform(translateY(0));
+}
+
+
+/* Custom slide in up animation for modals */
+
+.custom-slide-in-up {
+  @include transform(translate3d(0, 100%, 0));
+}
+.custom-slide-in-up.ng-enter,
+.custom-slide-in-up > .ng-enter {
+  @include transition(all 400ms ease-out);
+}
+.custom-slide-in-up.ng-enter-active,
+.custom-slide-in-up > .ng-enter-active {
+  @include transform(translate3d(0, 0, 0));
+}
+.custom-slide-in-up.ng-leave,
+.custom-slide-in-up > .ng-leave {
+  @include transition(all 400ms ease-in-out);
+}
+
+
+/* Animations for list items */
+
+.log-item.ng-enter {
+  @include animation(0.5s bounceIn);
+}
+
+@include keyframes(bounceIn) {
+  0% {
+    opacity: 0;
+    @include transform(scale(.3));
+  }
+  50% {
+    opacity: 1;
+    @include transform(scale(1.05));
+  }
+  70% {
+    @include transform(scale(.9));
+  }
+  100% {
+    opacity: 1;
+    @include transform(scale(1));
+  }
+}
+
+.log-item.ng-leave {
+  @include animation(0.5s fadeOutLeftBig);
+}
+
+@include keyframes(fadeOutLeftBig) {
+  0% {
+    opacity: 1;
+    @include transform(translateX(0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translateX(-2000px));
+  }
+}

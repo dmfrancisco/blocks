@@ -11,6 +11,9 @@
 // Custom theme for Ionic
 @import "theme";
 
+// Custom animations
+@import "animations";
+
 
 /* Index view */
 
@@ -313,44 +316,4 @@
 [data-theme="octocat"] {
   @include theme(#efefef, #ddd, #d6e685, #8cc665, #44a340, #1e6823, #44a340, #000, #000, #fff, 0.8);
   #new-log & .color-1 { @include triangle-gradient(#f0f0f0, 0.6); }
-}
-
-
-/* Animations for list items */
-
-.log-item.ng-enter {
-  @include animation(0.5s bounceIn);
-}
-
-@include keyframes(bounceIn) {
-  0% {
-    opacity: 0;
-    @include transform(scale(.3));
-  }
-  50% {
-    opacity: 1;
-    @include transform(scale(1.05));
-  }
-  70% {
-    @include transform(scale(.9));
-  }
-  100% {
-    opacity: 1;
-    @include transform(scale(1));
-  }
-}
-
-.log-item.ng-leave {
-  @include animation(0.5s fadeOutLeftBig);
-}
-
-@include keyframes(fadeOutLeftBig) {
-  0% {
-    opacity: 1;
-    @include transform(translateX(0));
-  }
-  100% {
-    opacity: 0;
-    @include transform(translateX(-2000px));
-  }
 }
