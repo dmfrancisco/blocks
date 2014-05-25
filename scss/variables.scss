@@ -13,41 +13,21 @@ $ionicons-font-path: "../fonts" !default;
   font-style: normal;
 }
 
-// Colors adapted from the solarized theme (ethanschoonover.com/solarized)
-$base03:    #002b36;
-$base02:    #073642;
-$base01:    #586e75;
-$base00:    #657b83;
-$base0:     #839496;
-$base1:     #93a1a1;
-$base2:     #eeeeee;
-$base3:     #ffffff;
-$yellow:    #b58900;
-$orange:    #cb4b16;
-$red:       #dc322f;
-$magenta:   #d33682;
-$violet:    #6c71c4;
-$blue:      #268bd2;
-$cyan:      #2aa198;
-$green:     #859900;
-
-
-/* Override default variables */
-
-// Colors
+// Override default colors
 $dark: #000;
 $button-light-text: $dark;
 $scroll-refresh-icon-color: #d8d8d8;
 $modal-backdrop-bg-active: rgba(#000, 0.3);
 
-// Fonts
+// Override default fonts
 $font-family-sans-serif: "Montserrat";
 
-// Font sizes
+// Override default font sizes
 $font-size-base:      17px;            // Changed from 14px
 $font-size-large:     19px;            // Changed from 18px
 $font-size-small:     14px;            // Changed from 11px
 
+// Override other variables
 $button-font-size:    $font-size-base; // Changed from 16px
 $bar-title-font-size: $font-size-base; // Changed from 17px
 $item-font-size:      $font-size-base; // Changed from 16px
