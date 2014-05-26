@@ -1,0 +1,43 @@
+html, body {
+  background: black;
+}
+
+body, .ionic-body, .button {
+  letter-spacing: -1px;
+
+  // Force lowercase everywhere in the application
+  text-transform: lowercase;
+}
+
+// An underlay for the status bar
+.platform-ios7 .fade-bar {
+  height: 20px;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+  opacity: 0.7;
+  background: black;
+}
+
+.bar, .list-inset, .item {
+  background-color: transparent;
+  border: none;
+}
+
+
+/* Action sheets */
+.action-sheet {
+  margin: 0;
+}
+.action-sheet-group {
+  margin-top: 2px;
+  margin-bottom: 0;
+  border-radius: 0;
+
+  .button {
+    text-transform: uppercase;
+    background-color: #fff;
+    min-height: 65px;
+    letter-spacing: 0;
+  }
+}

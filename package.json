@@ -2,11 +2,13 @@
   "name": "logr",
   "version": "0.0.1",
   "description": "An app for people interested in gathering knowledge and making experiences for self-improvement.",
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-coffee": "^1.4.3",
+    "gulp-uglify": "^0.3.0",
+    "gulp-angular-templatecache": "^1.1.3"
   }
 }

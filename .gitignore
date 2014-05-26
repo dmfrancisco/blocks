@@ -1,5 +1,5 @@
-# Ignore files built by SASS
-www/css/
+# Ignore files built by precompilers
+www/
 
 # Ignore files built by ionic
 platforms/

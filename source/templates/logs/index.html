@@ -1,0 +1,26 @@
+<!-- Log index view -->
+<ion-view id="logs">
+  <!-- Translucid background for the status bar (iOS) -->
+  <fade-bar></fade-bar>
+
+  <ion-content>
+    <ion-refresher pulling-icon="" refreshing-icon="" on-refresh="newLog()"
+      pulling-text="add new" refreshing-text="nice!">
+    </ion-refresher>
+
+    <ion-list class="list">
+      <ion-item ng-repeat="log in logs" href="#/app/log/{{$index}}"
+        class="item-icon-left log-item" data-theme="{{log.themeId}}">
+          <i class="icon ion-record dot"></i>
+          {{log.title}}
+
+          <ion-option-button class="button-clear button-positive" ng-click="updateLog(log)">
+            <i class="icon ion-edit"></i>
+          </ion-option-button>
+          <ion-option-button class="button-clear button-assertive" ng-click="destroyLog(log)">
+            <i class="icon ion-android-trash"></i>
+          </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
