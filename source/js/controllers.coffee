@@ -66,7 +66,7 @@ Application.controller "LogIndexController", ($scope, $ionicModal, $ionicActionS
   StatusBar.styleLightContent() if window.StatusBar
 
 
-Application.controller "LogController", ($scope, $ionicModal, $stateParams, $timeout, Logs) ->
+Application.controller "LogController", ($scope, $ionicModal, $stateParams, $timeout, $animate, Logs) ->
   $scope.logIndex = $stateParams.id
   $scope.logs = Logs.all()
   $scope.log = $scope.logs[$scope.logIndex]
@@ -167,23 +167,28 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
     # Display a circle around the point where the dragging started
     counter = angular.element(document.getElementById("counter"))
 
-    clearTimeout(Config.dirty.timeout)
-    Config.dirty.shouldSave = false
+    if Math.abs(Config.dirty.lastRadius - radius) < 10
+      Config.dirty.timeout = setTimeout(->
+        Config.dirty.shouldSave = true
+        counter.addClass("stable")
+      , 500)
+    else
+      clearTimeout(Config.dirty.timeout)
+      Config.dirty.shouldSave = false
+      counter.removeClass("stable")
 
-    Config.dirty.timeout = setTimeout(->
-      counter.addClass("stable")
-      Config.dirty.shouldSave = true
-    , 500)
+    Config.dirty.lastRadius = radius
 
     counter
       .html(content)
-      .removeClass("stable")
       .css({
         display: "block",
         top:    "#{ counterTop  }px",
         left:   "#{ counterLeft }px",
         width:  "#{ counterSize }px",
         height: "#{ counterSize }px",
+        "margin-top":    "0",
+        "margin-left":   "0",
         "font-size":     "#{ fontSize      }px",
         "line-height":   "#{ counterSize   }px",
         "border-radius": "#{ counterRadius }px"
@@ -207,7 +212,39 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
     Config.dirty.shouldSave = false
 
     # Hide the circle with the counter
-    angular.element(document.getElementById("counter")).css(display: "none")
+    counter = angular.element(document.getElementById("counter"))
+    $animate.addClass counter, "zoom-out", ->
+      counter.css(display: "none").removeClass("zoom-out")
+
+  $scope.displayCounting = (date) ->
+    value = Logs.getValue($scope.log, date)
+    return if value < 0
+
+    content = "#{ value }<sub> / #{ $scope.log.maxValue }</sub>"
+    counter = angular.element(document.getElementById("counter"))
+
+    clearTimeout(Config.dirty.timeout)
+    Config.dirty.timeout = setTimeout(->
+      $animate.addClass counter, "zoom-out", ->
+        counter.css(display: "none").removeClass("zoom-out")
+    , 1000)
+
+    counter
+      .html(content)
+      .addClass("stable")
+      .css({
+        display: "block",
+        top:    "50%",
+        left:   "50%",
+        width:  "220px",
+        height: "220px",
+        "margin-top":    "-110px",
+        "margin-left":   "-110px",
+        "font-size":     "60px",
+        "line-height":   "220px",
+        "border-radius": "110px"
+      })
+    return
 
 
   # Use the lightContent statusbar (light text, for dark backgrounds)

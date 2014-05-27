@@ -50,7 +50,7 @@ Config = ->
       "sleep time"
       "pomodoros"
       "cash spent"
-      "cups of water"
+      "water cups"
     ]
 
     # Sounds used in the application

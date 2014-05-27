@@ -11,8 +11,8 @@
 
   <ion-content class="padding">
     <div class="row" ng-repeat="weekNo in weeks">
-      <div class="col day {{getColor(date)}}" on-drag="displayCounter"
-        on-drop="hideCounter" ng-repeat="date in weekdays(weekNo)">
+      <div class="col day {{getColor(date)}}" on-drag="displayCounter" on-drop="hideCounter"
+        ng-click="displayCounting(date)" ng-repeat="date in weekdays(weekNo)">
           <span>{{dateTip(date, weekNo)}}</span>
       </div>
     </div>
