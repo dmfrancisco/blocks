@@ -106,9 +106,9 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
   $scope.getColor = (date) ->
     return "" if moment(date) > moment()
 
-    value = $scope.log.values[date]
+    value = Logs.getValue($scope.log, date)
     return "color-1" if value == 0
-    return "color-0" if value < 0 or not value
+    return "color-0" if value < 0
 
     color = Math.ceil(value * 4 / $scope.log.maxValue) + 1
     color = Math.min(color, 5) # Happens when the maxValue is not yet updated
@@ -132,18 +132,22 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
     x1 = 0.8 * Math.sqrt(Math.pow(screenW, 2) + Math.pow(screenH, 2)) / 2
     maxValue = 100
 
-    if radius > x1
+    if radius < 25
+      value = -1
+    else if radius > x1
       value = maxValue
     else
       a = maxValue / Math.pow(x1 - x0, 3)
       value = Math.round(a * Math.pow(radius - x0, 3))
 
-    # Save the counter value
-    $scope.log.values[date] = value
-    Logs.save($scope.logs)
+    # Save the counter value (will be persisted after the release event)
+    if Config.dirty.counterValue == null
+      Config.dirty.counterValue = Logs.getValue($scope.log, date)
+    Logs.setValue($scope.log, date, value)
 
     # Calculate the size and position of the circle input
-    counterRadius = Math.round Math.max(50, radius)
+    minRadius     = 50
+    counterRadius = Math.round Math.max(minRadius, radius)
     counterSize   = counterRadius * 2
     counterTop    = Math.round(e.gesture.startEvent.center.pageY - counterRadius)
     counterLeft   = Math.round(centerX - counterRadius)
@@ -152,12 +156,28 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
     offRight      = screenW - (counterSize + counterLeft)
     offBottom     = screenH - (counterSize + counterTop)
     minCoord      = Math.min(0, counterLeft, counterTop, offRight, offBottom)
-    visibleSize   = Math.max(50, (counterRadius + minCoord) * 2)
-    fontSize      = Math.round(visibleSize / 4)
+    visibleSize   = Math.max(minRadius, (counterRadius + minCoord) * 2)
+    fontSize      = Math.round(visibleSize / 3.5)
+
+    if value < 0
+      content = ""
+    else
+      content = "#{ value }<sub> / #{ $scope.log.maxValue }</sub>"
 
     # Display a circle around the point where the dragging started
-    angular.element(document.getElementById("counter"))
-      .html("#{ value }<sub> / #{ $scope.log.maxValue }</sub>")
+    counter = angular.element(document.getElementById("counter"))
+
+    clearTimeout(Config.dirty.timeout)
+    Config.dirty.shouldSave = false
+
+    Config.dirty.timeout = setTimeout(->
+      counter.addClass("stable")
+      Config.dirty.shouldSave = true
+    , 500)
+
+    counter
+      .html(content)
+      .removeClass("stable")
       .css({
         display: "block",
         top:    "#{ counterTop  }px",
@@ -170,14 +190,21 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
       })
 
   $scope.hideCounter = (e, $scope) ->
-    # Calculate the current maximum value
-    maxValue = 0
-    _.each $scope.log.values, (value) ->
-      maxValue = Math.max(value or 0, maxValue)
+    date = $scope.date
+
+    # Save the counter value
+    if Config.dirty.shouldSave != true
+      Logs.setValue($scope.log, date, Config.dirty.counterValue)
 
     # Save the max counter value
-    $scope.log.maxValue = maxValue
+    maxValue = Logs.getMaxValue($scope.log)
+    $scope.log.maxValue = Logs.getMaxValue($scope.log)
     Logs.save($scope.logs)
+
+    # Clear dirty attributes
+    Config.dirty.counterValue = null
+    clearTimeout(Config.dirty.timeout)
+    Config.dirty.shouldSave = false
 
     # Hide the circle with the counter
     angular.element(document.getElementById("counter")).css(display: "none")

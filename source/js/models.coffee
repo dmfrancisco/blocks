@@ -16,3 +16,19 @@ Application.factory "Logs", ->
       maxValue: maxValue
       values:   logValues
     }
+
+  getValue: (log, date) ->
+    value = log.values[date]
+    return -1 if value is undefined
+    return value
+
+  getMaxValue: (log, maxValue = 0) ->
+    _.each log.values, (value) ->
+      maxValue = Math.max(value or 0, maxValue)
+    return maxValue
+
+  setValue: (log, date, value) ->
+    if value == -1
+      delete log.values[date]
+    else
+      log.values[date] = value

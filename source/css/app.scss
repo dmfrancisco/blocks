@@ -142,10 +142,6 @@
   vertical-align: middle;
   white-space: nowrap;
 
-  color: white;
-  background: rgba(0,0,0, 0.5);
-  text-shadow: 0 0 5px black;
-
   display: none;
   @include animation(250ms reveal ease-out);
 
@@ -290,7 +286,7 @@
   &.theme {
     background-color: $bgdColor;
   }
-  .day {
+  .day, #counter {
     background-color: rgba($bgdColor, 0.5);
   }
   &.theme, .fade-bar, .icon-refreshing {
@@ -322,13 +318,16 @@
   .color-bgd {
     background-color: $bgdColor;
   }
+  #counter.stable {
+    background-color: rgba($dotColor, 0.8);
+  }
   .dot {
     color: $dotColor !important;
   }
   .close {
     color: $closeColor !important;
   }
-  .title {
+  .title, #counter {
     color: $titleColor;
   }
 }

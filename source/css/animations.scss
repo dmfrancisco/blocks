@@ -47,6 +47,7 @@
 /* Animations for list items */
 
 .log-item.ng-enter {
+  opacity: 0;
   @include animation(0.5s bounceIn);
 }
 

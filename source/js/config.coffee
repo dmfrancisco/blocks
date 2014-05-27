@@ -9,6 +9,9 @@ Config = ->
   ]
 
   return {
+    # Property to save temporary dirty properties
+    dirty: {}
+
     # Available themes (color palettes)
     themes: [
       {
