@@ -134,6 +134,28 @@
   }
 }
 
+#counter {
+  position: absolute;
+  z-index: 9001;
+  pointer-events: none;
+
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  display: none;
+  @include animation(250ms zoomIn ease-out);
+
+  &.zoom-out {
+    opacity: 0;
+    @include animation(100ms zoomOut ease-out);
+  }
+  sub {
+    font-size: 55%;
+    opacity: 0.5;
+  }
+}
+
 
 /* New view */
 
@@ -258,7 +280,7 @@
   &.theme {
     background-color: $bgdColor;
   }
-  .day {
+  .day, #counter {
     background-color: rgba($bgdColor, 0.5);
   }
   &.theme, .fade-bar, .icon-refreshing {
@@ -290,13 +312,16 @@
   .color-bgd {
     background-color: $bgdColor;
   }
+  #counter.stable {
+    background-color: rgba($dotColor, 0.8);
+  }
   .dot {
     color: $dotColor !important;
   }
   .close {
     color: $closeColor !important;
   }
-  .title {
+  .title, #counter {
     color: $titleColor;
   }
 }

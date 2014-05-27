@@ -9,6 +9,9 @@ Config = ->
   ]
 
   return {
+    # Property to save temporary dirty properties
+    dirty: {}
+
     # Available themes (color palettes)
     themes: [
       {
@@ -47,7 +50,7 @@ Config = ->
       "sleep time"
       "pomodoros"
       "cash spent"
-      "cups of water"
+      "water cups"
     ]
 
     # Sounds used in the application
