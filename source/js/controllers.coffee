@@ -71,37 +71,14 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
   $scope.logs = Logs.all()
   $scope.log = $scope.logs[$scope.logIndex]
 
-  $scope.setValue = (dayOfWeek, weekNo) ->
-    date = Utils.getDate(dayOfWeek, weekNo).format("YYYY-MM-DD")
-
-    $scope.log.values[date] = $scope.log.values[date] or 0
-    $scope.log.values[date] = ($scope.log.values[date] + 1) % 6
-    Logs.save($scope.logs)
-
-  $scope.dateTip = (dayOfWeek, weekNo) ->
-    date = Utils.getDate(dayOfWeek, weekNo)
-
-    if date.format("D") is "1" and date.format("M") is "1"
-      return date.format("YYYY")
-    else if date.format("D") is "1"
-      return date.format("MMM")
-    else if date.day() is 1 and weekNo is 0
-      return "M"
-    else if date.day() is 3 and weekNo is 0
-      return "W"
-    else if date.day() is 5 and weekNo is 0
-      return "F"
-
-  $scope.getColor = (dayOfWeek, weekNo) ->
-    date = Utils.getDate(dayOfWeek, weekNo)
-    return "" if date > moment()
-
-    date = date.format("YYYY-MM-DD")
-    return "color-#{ $scope.log.values[date] or 0 }"
-
-  $scope.weeks = [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ]
-  $scope.weekdays = [ 0,1,2,3,4,5,6 ]
   $scope.hasMoreData = true
+  $scope.weeks = [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ]
+
+  $scope.weekdays = (weekNo) ->
+    dates = []
+    for dayOfWeek in [0..6]
+      dates.push moment().day(dayOfWeek - 7 * weekNo).format("YYYY-MM-DD")
+    return dates
 
   $scope.loadMore = ->
     for i in [0..16]
@@ -111,6 +88,100 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
       $scope.hasMoreData = false
 
     $scope.$broadcast("scroll.infiniteScrollComplete")
+
+  $scope.dateTip = (date, weekNo) ->
+    date = moment(date)
+
+    if date.format("D") is "1" and date.month() is 0
+      return date.year()
+    else if date.format("D") is "1"
+      return date.format("MMM")
+    else if date.day() is 1 and weekNo is 0
+      return "M"
+    else if date.day() is 3 and weekNo is 0
+      return "W"
+    else if date.day() is 5 and weekNo is 0
+      return "F"
+
+  $scope.getColor = (date) ->
+    return "" if moment(date) > moment()
+
+    value = $scope.log.values[date]
+    return "color-1" if value == 0
+    return "color-0" if value < 0 or not value
+
+    color = Math.ceil(value * 4 / $scope.log.maxValue) + 1
+    color = Math.min(color, 5) # Happens when the maxValue is not yet updated
+    return "color-#{ color }" # color will be 2, 3, 4 or 5
+
+  $scope.displayCounter = (e, $scope) ->
+    date = $scope.date
+    return if moment(date) > moment()
+
+    # Disable scroll
+    e.gesture.srcEvent.preventDefault()
+
+    # Event values
+    radius  = e.gesture.distance
+    centerX = e.gesture.startEvent.center.pageX
+    centerY = e.gesture.startEvent.center.pageY
+    screenW = window.innerWidth
+    screenH = window.innerHeight
+
+    x0 = 10
+    x1 = 0.8 * Math.sqrt(Math.pow(screenW, 2) + Math.pow(screenH, 2)) / 2
+    maxValue = 100
+
+    if radius > x1
+      value = maxValue
+    else
+      a = maxValue / Math.pow(x1 - x0, 3)
+      value = Math.round(a * Math.pow(radius - x0, 3))
+
+    # Save the counter value
+    $scope.log.values[date] = value
+    Logs.save($scope.logs)
+
+    # Calculate the size and position of the circle input
+    counterRadius = Math.round Math.max(50, radius)
+    counterSize   = counterRadius * 2
+    counterTop    = Math.round(e.gesture.startEvent.center.pageY - counterRadius)
+    counterLeft   = Math.round(centerX - counterRadius)
+
+    # Calculate the font-size
+    offRight      = screenW - (counterSize + counterLeft)
+    offBottom     = screenH - (counterSize + counterTop)
+    minCoord      = Math.min(0, counterLeft, counterTop, offRight, offBottom)
+    visibleSize   = Math.max(50, (counterRadius + minCoord) * 2)
+    fontSize      = Math.round(visibleSize / 4)
+
+    # Display a circle around the point where the dragging started
+    angular.element(document.getElementById("counter"))
+      .html("#{ value }<sub> / #{ $scope.log.maxValue }</sub>")
+      .css({
+        display: "block",
+        top:    "#{ counterTop  }px",
+        left:   "#{ counterLeft }px",
+        width:  "#{ counterSize }px",
+        height: "#{ counterSize }px",
+        "font-size":     "#{ fontSize      }px",
+        "line-height":   "#{ counterSize   }px",
+        "border-radius": "#{ counterRadius }px"
+      })
+
+  $scope.hideCounter = (e, $scope) ->
+    # Calculate the current maximum value
+    maxValue = 0
+    _.each $scope.log.values, (value) ->
+      maxValue = Math.max(value or 0, maxValue)
+
+    # Save the max counter value
+    $scope.log.maxValue = maxValue
+    Logs.save($scope.logs)
+
+    # Hide the circle with the counter
+    angular.element(document.getElementById("counter")).css(display: "none")
+
 
   # Use the lightContent statusbar (light text, for dark backgrounds)
   if window.StatusBar

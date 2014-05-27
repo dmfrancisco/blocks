@@ -9,9 +9,10 @@ Application.factory "Logs", ->
     window.localStorage.logs = angular.toJson(logs)
     return
 
-  newLog: (logTitle, logThemeId, logValues = {}) ->
+  newLog: (logTitle, logThemeId, maxValue = 0, logValues = {}) ->
     return {
-      title:   logTitle
-      themeId: logThemeId
-      values:  logValues
+      title:    logTitle
+      themeId:  logThemeId
+      maxValue: maxValue
+      values:   logValues
     }

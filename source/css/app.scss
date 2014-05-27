@@ -134,6 +134,38 @@
   }
 }
 
+#counter {
+  position: absolute;
+  z-index: 9001;
+
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  color: white;
+  background: rgba(0,0,0, 0.5);
+  text-shadow: 0 0 5px black;
+
+  display: none;
+  @include animation(250ms reveal ease-out);
+
+  sub {
+    font-size: 55%;
+    opacity: 0.5;
+  }
+}
+
+@include keyframes(reveal) {
+  0% {
+    opacity: 0;
+    @include transform(scale(0));
+  }
+  100% {
+    opacity: 1;
+    @include transform(scale(1));
+  }
+}
+
 
 /* New view */
 

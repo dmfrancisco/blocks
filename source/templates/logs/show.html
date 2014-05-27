@@ -10,14 +10,16 @@
   </ion-header-bar>
 
   <ion-content class="padding">
-    <div class="row" ng-repeat="noWeek in weeks">
-      <div class="col day {{getColor(dayOfWeek, noWeek)}}" ng-repeat="dayOfWeek in weekdays"
-        ng-click="setValue(dayOfWeek, noWeek)">
-          <span>{{dateTip(dayOfWeek, noWeek)}}</span>
+    <div class="row" ng-repeat="weekNo in weeks">
+      <div class="col day {{getColor(date)}}" on-drag="displayCounter"
+        on-drop="hideCounter" ng-repeat="date in weekdays(weekNo)">
+          <span>{{dateTip(date, weekNo)}}</span>
       </div>
     </div>
 
     <ion-infinite-scroll on-infinite="loadMore()" ng-if="hasMoreData">
     </ion-infinite-scroll>
   </ion-content>
+
+  <div id="counter"></div>
 </ion-view>
