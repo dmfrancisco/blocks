@@ -150,12 +150,17 @@
   white-space: nowrap;
 
   display: none;
-  @include animation(250ms zoomIn ease-out);
   @include transition(background-color 250ms ease-in-out);
 
+  &.zoom-in {
+    @include animation(250ms zoomIn ease-out);
+  }
   &.zoom-out {
     opacity: 0;
     @include animation(100ms zoomOut ease-out);
+  }
+  &.bounce {
+    @include animation(100ms bounce ease-out);
   }
   sub {
     font-size: 55%;

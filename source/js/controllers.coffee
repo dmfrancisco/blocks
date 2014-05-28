@@ -102,11 +102,11 @@
     screenW = window.innerWidth
     screenH = window.innerHeight
 
-    x0 = 10
+    x0 = 30
     x1 = 0.8 * Math.sqrt(Math.pow(screenW, 2) + Math.pow(screenH, 2)) / 2
     maxValue = 100
 
-    if radius < 25
+    if radius < 40
       value = -1
     else if radius > x1
       value = maxValue
@@ -154,6 +154,7 @@
     Config.dirty.lastRadius = radius
 
     counter
+      .addClass("zoom-in")
       .html(content)
       .css({
         display: "block",
@@ -172,7 +173,7 @@
     date = $scope.square.date
 
     # Save the counter value
-    if Config.dirty.shouldSave != true
+    if Config.dirty.shouldSave == false and Config.dirty.counterValue != null
       setValue(date, Config.dirty.counterValue)
     else
       Logs.save($scope.logs)
@@ -184,6 +185,7 @@
 
     # Hide the circle with the counter
     counter = angular.element(document.getElementById("counter"))
+    counter.removeClass("zoom-in")
     $animate.addClass counter, "zoom-out", ->
       counter.css(display: "none").removeClass("zoom-out")
 
@@ -195,10 +197,14 @@
     counter = angular.element(document.getElementById("counter"))
 
     clearTimeout(Config.dirty.timeout)
+
     Config.dirty.timeout = setTimeout(->
       $animate.addClass counter, "zoom-out", ->
         counter.css(display: "none").removeClass("zoom-out")
     , 1000)
+
+    $animate.addClass counter, "bounce", ->
+      counter.removeClass("bounce")
 
     counter
       .html(content)

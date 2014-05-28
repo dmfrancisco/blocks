@@ -151,6 +151,8 @@
     return squares
 
   getDateRef = (date, weekNo) ->
+    return "" if date > new Date()
+
     dayOfWeek = date.getDay()
     dayOfMonth = date.getDate()
 
