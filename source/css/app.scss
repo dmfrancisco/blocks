@@ -118,7 +118,6 @@
   }
   .has-header {
     top: 0;
-    padding-top: 120px;
   }
   .row {
     // Fixes a strange mismatch between the right and left on the iPhone
@@ -126,6 +125,8 @@
     padding: 0 4px 5px 4px;
   }
   .scroll-content {
+    padding: 120px 10px 10px;
+
     // Keep the calendar above the header
     z-index: 1000;
 
@@ -135,6 +136,7 @@
   .scroll {
     // Restore click events, only in the calendar
     pointer-events: auto;
+    padding-bottom: 130px;
   }
 }
 
@@ -248,7 +250,7 @@
 }
 
 
-/* Calendar component */
+/* Squares component */
 
 .day {
   // Make the cells square

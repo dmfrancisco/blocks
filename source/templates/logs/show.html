@@ -9,7 +9,7 @@
     <a ng-href="#/app/home" class="button button-icon ion-android-close close"></a>
   </ion-header-bar>
 
-  <ion-content class="padding">
+  <ion-content>
     <div class="row" ng-repeat="rowOfSquares in squares">
       <div class="col day" ng-class="square.color" on-drag="displayCounter" on-drop="hideCounter"
         ng-click="displayCounting(square)" ng-repeat="square in rowOfSquares">
