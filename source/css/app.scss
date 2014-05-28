@@ -163,6 +163,17 @@
   }
 }
 
+#stats {
+  position: absolute;
+  top: 160px;
+  left: 0;
+  right: 0;
+
+  text-transform: uppercase;
+  letter-spacing: 0;
+  text-align: center;
+}
+
 
 /* New view */
 
@@ -321,6 +332,9 @@
 
   .color-bgd {
     background-color: $bgdColor;
+  }
+  #stats {
+    color: $emptyColor;
   }
   .dot {
     color: $dotColor !important;
