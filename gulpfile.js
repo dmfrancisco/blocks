@@ -15,20 +15,9 @@ var paths = {
   ],
   sass: [
     './source/css/**/*.scss'
-  ]
-};
-
-var sources = {
-  coffee: [
-    './source/js/utils.coffee',
-    './source/js/config.coffee',
-    './source/js/app.coffee',
-    './source/js/services.coffee',
-    './source/js/controllers.coffee',
-    './source/js/directives.coffee'
   ],
-  sass: [
-    './source/css/app.scss'
+  coffee: [
+    './source/js/**/*.coffee'
   ],
   templates: [
     './source/templates/**/*.html'
@@ -45,7 +34,7 @@ gulp.task('assets', function () {
 
 // Minify and copy all SCSS files (including vendor stylesheets)
 gulp.task('sass', function() {
-  return gulp.src(sources.sass)
+  return gulp.src("./source/css/app.scss")
     .pipe(sass())
     .pipe(minifyCss({
       keepSpecialComments: 0
@@ -55,7 +44,7 @@ gulp.task('sass', function() {
 
 // Minify and copy all CoffeeScript (except vendor scripts)
 gulp.task('coffee', function() {
-  return gulp.src(sources.coffee)
+  return gulp.src(paths.coffee)
     .pipe(coffee())
     .pipe(uglify({
       // Required for the Angular.js named variables
@@ -66,7 +55,7 @@ gulp.task('coffee', function() {
 });
 
 gulp.task('templates', function () {
-  return gulp.src(sources.templates)
+  return gulp.src(paths.templates)
     .pipe(angularTemplates({
       filename: "templates.js",
       module: "logr"
@@ -77,8 +66,8 @@ gulp.task('templates', function () {
 // Rerun the tasks when a file changes
 gulp.task('watch', ['default'], function() {
   gulp.watch(paths.sass, ['sass']);
-  gulp.watch(sources.coffee, ['coffee']);
-  gulp.watch(sources.templates, ['templates']);
+  gulp.watch(paths.coffee, ['coffee']);
+  gulp.watch(paths.templates, ['templates']);
 });
 
 // The default task (called when you run `gulp` from cli)

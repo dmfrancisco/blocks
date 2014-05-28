@@ -102,6 +102,10 @@
     left: 20px;
     background: transparent;
     border: transparent;
+
+    .platform-ios7 & {
+      top: 25px;
+    }
   }
   .bar .title + .button:last-child {
     // Replace the close icon

@@ -9,7 +9,7 @@
     </ion-refresher>
 
     <ion-list class="list">
-      <ion-item ng-repeat="log in logs" href="#/app/log/{{$index}}"
+      <ion-item ng-repeat="log in logs" ng-href="#/app/log/{{$index}}"
         class="item-icon-left log-item" data-theme="{{log.themeId}}">
           <i class="icon ion-record dot"></i>
           {{log.title}}

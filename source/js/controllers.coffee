@@ -1,4 +1,8 @@
-Application.controller "LogIndexController", ($scope, $ionicModal, $ionicActionSheet, $timeout, Logs) ->
+# Allow scripts to be included in any order
+@App ||= angular.module("logr", ["ionic"])
+
+
+@App.controller "LogIndexController", ($scope, $ionicModal, $ionicActionSheet, $timeout, Config, Utils, Logs) ->
 
   # Load or initialize logs
   $scope.logs = Logs.all()
@@ -67,7 +71,7 @@ Application.controller "LogIndexController", ($scope, $ionicModal, $ionicActionS
   StatusBar.styleLightContent() if window.StatusBar
 
 
-Application.controller "LogController", ($scope, $ionicModal, $stateParams, $timeout, $animate, Logs, Squares) ->
+@App.controller "LogController", ($scope, $ionicModal, $stateParams, $timeout, $animate, Config, Logs, Squares) ->
 
   # Load or initialize logs and squares
   $scope.logs = Logs.all()

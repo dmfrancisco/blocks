@@ -1,8 +1,9 @@
-window.Application = angular.module("logr", ["ionic"])
+# Allow scripts to be included in any order
+@App ||= angular.module("logr", ["ionic"])
 
 
 # Configure routes
-Application.config ($stateProvider, $urlRouterProvider) ->
+@App.config ($stateProvider, $urlRouterProvider) ->
 
   $stateProvider.state "app",
     url: "/app"
@@ -27,7 +28,7 @@ Application.config ($stateProvider, $urlRouterProvider) ->
 
 
 # Run the application
-Application.run ($ionicPlatform) ->
+@App.run ($ionicPlatform) ->
   $ionicPlatform.ready ->
     # Hide the accessory bar by default (remove this to show the
     # accessory bar above the keyboard for form inputs)

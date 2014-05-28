@@ -1,5 +1,69 @@
+# Allow scripts to be included in any order
+@App ||= angular.module("logr", ["ionic"])
+
+
+# Configurations used across the application
+@App.factory "Config", ->
+  obj = {}
+
+  genericColorClasses = [
+    "color-bgd"
+    "color-1"
+    "color-2"
+    "color-3"
+    "color-4"
+    "color-5"
+  ]
+
+  # Property to save temporary dirty properties
+  obj.dirty = {}
+
+  # Available themes (color palettes)
+  obj.themes = [{
+    id: "ruby"
+    colorClasses: genericColorClasses
+  }, {
+    id: "purple"
+    colorClasses: genericColorClasses
+  }, {
+    id: "sulek"
+    colorClasses: genericColorClasses
+  }, {
+    id: "octocat"
+    colorClasses: genericColorClasses
+  }]
+
+  # If the theme has a light background, a dark status bar will be used (iOS 7)
+  obj.lightThemeIds = [
+    "octocat"
+  ]
+
+  # A list of placeholders to show in the log title input
+  obj.titlePlaceholders = [
+    "exercise"
+    "read"
+    "journal"
+    "steps"
+    "sleep time"
+    "pomodoros"
+    "cash spent"
+    "water cups"
+  ]
+
+  # Sounds used in the application
+  obj.sounds = {
+    created:   new Audio("sounds/qurazy_quoin.mp3")
+    destroyed: new Audio("sounds/friend_exits.mp3")
+  }
+
+  # Number of weeks the app displays
+  obj.totalWeeks = 52
+
+  return obj
+
+
 # The Logs factory handles saving and loading logs from local storage
-Application.factory "Logs", ->
+@App.factory "Logs", ->
   obj = {}
 
   obj.all = ->
@@ -38,7 +102,32 @@ Application.factory "Logs", ->
 
   return obj
 
-Application.factory "Squares", (Logs) ->
+
+# Utility methods
+@App.factory "Utils", ->
+  obj = {}
+
+  currentPlaceholderIndex = 0
+
+  # This method returns a random placeholder without repeating the values
+  obj.genRandomPlaceholder = (placeholders) ->
+    if currentPlaceholderIndex is 0
+      placeholders.sort(-> 0.5 - Math.random())
+
+    currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length
+    return placeholders[currentPlaceholderIndex]
+
+  # List of abbreviated month names
+  obj.monthsShort = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ]
+
+  return obj
+
+
+# The Squares factory has the logic necessary to render the squares for a log
+@App.factory "Squares", (Config, Utils, Logs) ->
   obj = {}
 
   # Initialize the squares with filled dates and binary colors
