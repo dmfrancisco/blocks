@@ -1,4 +1,5 @@
 Application.controller "LogIndexController", ($scope, $ionicModal, $ionicActionSheet, $timeout, Logs) ->
+
   # Load or initialize logs
   $scope.logs = Logs.all()
 
@@ -66,57 +67,26 @@ Application.controller "LogIndexController", ($scope, $ionicModal, $ionicActionS
   StatusBar.styleLightContent() if window.StatusBar
 
 
-Application.controller "LogController", ($scope, $ionicModal, $stateParams, $timeout, $animate, Logs) ->
-  $scope.logIndex = $stateParams.id
+Application.controller "LogController", ($scope, $ionicModal, $stateParams, $timeout, $animate, Logs, Squares) ->
+
+  # Load or initialize logs and squares
   $scope.logs = Logs.all()
-  $scope.log = $scope.logs[$scope.logIndex]
+  $scope.log = $scope.logs[$stateParams.id]
+  $scope.squares = Squares.init()
 
-  $scope.hasMoreData = true
-  $scope.weeks = [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ]
+  # Update the squares asynchronously
+  $timeout ->
+    Squares.setProperties($scope.log, $scope.squares, 0, 16)
+    $timeout ->
+      Squares.setProperties($scope.log, $scope.squares, 17, Config.totalWeeks)
 
-  $scope.weekdays = (weekNo) ->
-    dates = []
-    for dayOfWeek in [0..6]
-      dates.push moment().day(dayOfWeek - 7 * weekNo).format("YYYY-MM-DD")
-    return dates
-
-  $scope.loadMore = ->
-    for i in [0..16]
-      $scope.weeks.push($scope.weeks.length)
-
-    if $scope.weeks.length >= 336
-      $scope.hasMoreData = false
-
-    $scope.$broadcast("scroll.infiniteScrollComplete")
-
-  $scope.dateTip = (date, weekNo) ->
-    date = moment(date)
-
-    if date.format("D") is "1" and date.month() is 0
-      return date.year()
-    else if date.format("D") is "1"
-      return date.format("MMM")
-    else if date.day() is 1 and weekNo is 0
-      return "M"
-    else if date.day() is 3 and weekNo is 0
-      return "W"
-    else if date.day() is 5 and weekNo is 0
-      return "F"
-
-  $scope.getColor = (date) ->
-    return "" if moment(date) > moment()
-
-    value = Logs.getValue($scope.log, date)
-    return "color-1" if value == 0
-    return "color-0" if value < 0
-
-    color = Math.ceil(value * 4 / $scope.log.maxValue) + 1
-    color = Math.min(color, 5) # Happens when the maxValue is not yet updated
-    return "color-#{ color }" # color will be 2, 3, 4 or 5
+  setValue = (date, value) ->
+    Logs.setValue($scope.log, date, value)
+    Squares.setProperties($scope.log, $scope.squares, 0, Config.totalWeeks)
 
   $scope.displayCounter = (e, $scope) ->
-    date = $scope.date
-    return if moment(date) > moment()
+    date = $scope.square.date
+    return if date > new Date()
 
     # Disable scroll
     e.gesture.srcEvent.preventDefault()
@@ -142,8 +112,8 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
 
     # Save the counter value (will be persisted after the release event)
     if Config.dirty.counterValue == null
-      Config.dirty.counterValue = Logs.getValue($scope.log, date)
-    Logs.setValue($scope.log, date, value)
+      Config.dirty.counterValue = $scope.square.value
+    setValue(date, value)
 
     # Calculate the size and position of the circle input
     minRadius     = 50
@@ -195,16 +165,13 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
       })
 
   $scope.hideCounter = (e, $scope) ->
-    date = $scope.date
+    date = $scope.square.date
 
     # Save the counter value
     if Config.dirty.shouldSave != true
-      Logs.setValue($scope.log, date, Config.dirty.counterValue)
-
-    # Save the max counter value
-    maxValue = Logs.getMaxValue($scope.log)
-    $scope.log.maxValue = Logs.getMaxValue($scope.log)
-    Logs.save($scope.logs)
+      setValue(date, Config.dirty.counterValue)
+    else
+      Logs.save($scope.logs)
 
     # Clear dirty attributes
     Config.dirty.counterValue = null
@@ -216,8 +183,8 @@ Application.controller "LogController", ($scope, $ionicModal, $stateParams, $tim
     $animate.addClass counter, "zoom-out", ->
       counter.css(display: "none").removeClass("zoom-out")
 
-  $scope.displayCounting = (date) ->
-    value = Logs.getValue($scope.log, date)
+  $scope.displayCounting = (square) ->
+    value = square.value
     return if value < 0
 
     content = "#{ value }<sub> / #{ $scope.log.maxValue }</sub>"

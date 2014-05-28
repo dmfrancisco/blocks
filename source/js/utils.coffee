@@ -9,8 +9,14 @@ Utils = ->
     currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length
     return placeholders[currentPlaceholderIndex]
 
+  monthsShort = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ]
+
   return {
-    genRandomPlaceholder: genRandomPlaceholder
+    genRandomPlaceholder: genRandomPlaceholder,
+    monthsShort: monthsShort
   }
 
 window.Utils = new Utils()

@@ -58,6 +58,9 @@ Config = ->
       created:   new Audio("sounds/qurazy_quoin.mp3")
       destroyed: new Audio("sounds/friend_exits.mp3")
     }
+
+    # Number of weeks the app displays
+    totalWeeks: 52
   }
 
 window.Config = new Config()

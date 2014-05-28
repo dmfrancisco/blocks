@@ -23,7 +23,7 @@ var sources = {
     './source/js/utils.coffee',
     './source/js/config.coffee',
     './source/js/app.coffee',
-    './source/js/models.coffee',
+    './source/js/services.coffee',
     './source/js/controllers.coffee',
     './source/js/directives.coffee'
   ],
