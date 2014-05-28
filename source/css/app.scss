@@ -151,6 +151,7 @@
 
   display: none;
   @include animation(250ms zoomIn ease-out);
+  @include transition(background-color 250ms ease-in-out);
 
   &.zoom-out {
     opacity: 0;
@@ -286,8 +287,11 @@
   &.theme {
     background-color: $bgdColor;
   }
-  .day, #counter {
+  .day, #counter.stable {
     background-color: rgba($bgdColor, 0.5);
+  }
+  #counter {
+    background-color: rgba($bgdColor, 0.1);
   }
   &.theme, .fade-bar, .icon-refreshing {
     color: $bgdColor; // Default color for the box shadows
@@ -317,9 +321,6 @@
 
   .color-bgd {
     background-color: $bgdColor;
-  }
-  #counter.stable {
-    background-color: rgba($dotColor, 0.8);
   }
   .dot {
     color: $dotColor !important;

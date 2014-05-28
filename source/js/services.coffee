@@ -93,7 +93,7 @@
       delete log.values[date.toDateString()]
     else
       log.values[date.toDateString()] = value
-      updateMaxValue(log)
+    updateMaxValue(log)
 
   updateMaxValue = (log, maxValue = 0) ->
     angular.forEach log.values, (value) ->
