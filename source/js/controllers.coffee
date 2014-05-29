@@ -76,13 +76,21 @@
   # Load or initialize logs and squares
   $scope.logs = Logs.all()
   $scope.log = $scope.logs[$stateParams.id]
-  $scope.squares = Squares.init()
+  $scope.squares = Squares.init(Config.initialWeeks)
+  $scope.hasMoreData = true
 
   # Update the squares asynchronously
   $timeout ->
-    Squares.setProperties($scope.log, $scope.squares, 0, 16)
+    Squares.setProperties($scope.log, $scope.squares, 0, Config.initialWeeks)
+
+  loadMore = ->
     $timeout ->
-      Squares.setProperties($scope.log, $scope.squares, 17, Config.totalWeeks)
+      $scope.squares = Squares.init(Config.totalWeeks)
+      Squares.setProperties($scope.log, $scope.squares, 0, Config.totalWeeks)
+      $scope.hasMoreData = false
+    , 2000
+
+  loadMore()
 
   setValue = (date, value) ->
     Logs.setValue($scope.log, date, value)

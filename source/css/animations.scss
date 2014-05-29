@@ -14,6 +14,7 @@
 .custom-swap-animation.reverse .ng-enter {
   @include transform(scale(0.5));
   opacity: 0;
+  .platform-ios6 & { opacity: 1 }
 }
 .custom-swap-animation:not(.reverse) .ng-enter,
 .custom-swap-animation.reverse .ng-leave.ng-leave-active {

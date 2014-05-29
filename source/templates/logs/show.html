@@ -6,20 +6,23 @@
   <ion-header-bar>
     <div class="button-icon icon ion-record dot"></div>
     <h1 class="title">{{log.title}}</h1>
-    <a ng-href="#/app/home" class="button button-icon ion-android-close close"></a>
+    <a ng-href="#/app/logs" class="button button-icon ion-android-close close"></a>
   </ion-header-bar>
 
   <ion-content>
     <div class="row" ng-repeat="rowOfSquares in squares">
       <div class="col day" ng-class="square.color" on-drag="displayCounter" on-release="hideCounter"
-        ng-click="displayCounting(square)" ng-repeat="square in rowOfSquares">
-          <span>{{square.dateRef}}</span>
+        ng-click="displayCounting(square)" ng-repeat="square in rowOfSquares track by square.date">
+          <span class="date-ref" ng-bind="square.dateRef"></span>
       </div>
     </div>
+
+    <ion-infinite-scroll ng-if="hasMoreData"></ion-infinite-scroll>
   </ion-content>
 
   <div id="stats" ng-show="log.maxValue > 0">
     Your High Score is {{log.maxValue}}
   </div>
+
   <div id="counter"></div>
 </ion-view>

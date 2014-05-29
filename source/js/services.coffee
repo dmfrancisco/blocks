@@ -57,7 +57,12 @@
   }
 
   # Number of weeks the app displays
-  obj.totalWeeks = 52
+  if window.innerHeight <= 480
+    obj.initialWeeks = 9
+    obj.totalWeeks = 26
+  else
+    obj.initialWeeks = 12
+    obj.totalWeeks = 52
 
   return obj
 
@@ -131,13 +136,13 @@
   obj = {}
 
   # Initialize the squares with filled dates and binary colors
-  obj.init = (squares = []) ->
+  obj.init = (totalWeeks = Config.totalWeeks, squares = []) ->
     today = new Date()
     lastDayOfWeek = new Date()
     lastDayOfWeek.setDate(today.getDate() - today.getDay() + 6)
     currentDay = lastDayOfWeek
 
-    for weekNo in [0..Config.totalWeeks]
+    for weekNo in [0..totalWeeks]
       squares[weekNo] = []
 
       for dayOfWeek in [6..0]
