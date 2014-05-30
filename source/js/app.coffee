@@ -42,5 +42,5 @@
 
 # Wait for Cordova to load
 document.addEventListener("deviceready", (->
-  setTimeout(navigator.splashscreen.hide, 2000)
+  navigator.splashscreen.hide()
 ), false)
