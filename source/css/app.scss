@@ -55,13 +55,15 @@
     left: 68px;
   }
 
-  .list {
-    margin-top: 20px;
-  }
   .item {
-    border: none;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1px;
     font-size: 32px;
     line-height: 45px;
+
+    &.ng-enter .item-content {
+      background-color: transparent;
+    }
   }
   .item-complex.item-icon-left .item-content {
     padding-left: 70px;
@@ -318,7 +320,7 @@
 
   .color-0 {
     @include triangle-gradient($emptyColor, $percent);
-    box-shadow: inset -1px -1px 0 rgba($bgdColor, .05);
+    box-shadow: inset -1px -1px 0 rgba($bgdColor, .07);
   }
   .color-1 {
     @include triangle-gradient($color1, $percent);

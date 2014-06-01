@@ -41,13 +41,52 @@
   # A list of placeholders to show in the log title input
   obj.titlePlaceholders = [
     "exercise"
+    "running"
     "read"
     "journal"
+    "writing"
+    "blog post"
+    "drawing"
+    "painting"
+    "flossing"
+    "inbox zero"
+    "empty inbox"
+    "homework"
     "steps"
+    "gym"
+    "workout"
+    "social"
+    "meditation"
     "sleep time"
+    "hours slept"
+    "bed early"
+    "vitamins"
     "pomodoros"
+    "focus"
     "cash spent"
     "water cups"
+    "new skill"
+    "drinking"
+    "gas"
+    "calories"
+    "cake intake"
+    "eat fruits"
+    "hours worked"
+    "commits"
+    "joy levels"
+    "breaks"
+    "sodas today"
+    "coffees"
+    "coffees ☕️"
+    "chocolate"
+    "chocolate 🍫"
+    "cookies"
+    "cookies 🍪"
+    "walk 🐶"
+    "expenses 💰"
+    "practice 🎵"
+    "23pm 🌙"
+    "6am 😴"
   ]
 
   # Sounds used in the application
@@ -127,6 +166,10 @@
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ]
+
+  # Remove emoji characters (more info at: stackoverflow.com/a/10999907/543293)
+  obj.removeEmoji = (str) ->
+    str.replace(/([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]|\uD83D[\uDE80-\uDEFF])/g, '')
 
   return obj
 

@@ -43,13 +43,7 @@
 
     # This modal is called by the pull-to-refresh component.
     # To improve the animation, call complete after some delay
-    $timeout (-> $scope.$broadcast("scroll.refreshComplete")), 500
-
-    # Force WebKit to redraw to propagate style changes made to the pull-refresh text
-    sel = document.querySelector('.scroll-refresher')
-    sel.style.display = 'none'
-    sel.offsetHeight # No need to store this anywhere, the reference is enough
-    sel.style.display = 'block'
+    $scope.$broadcast("scroll.refreshComplete")
 
   # Edit log
   $scope.updateLog = (log) ->
@@ -58,7 +52,7 @@
   # Destroy log
   $scope.destroyLog = (log) ->
     $ionicActionSheet.show
-      destructiveText: "Remove &nbsp;<strong>#{ log.title.toLowerCase() }</strong>"
+      destructiveText: "Remove &nbsp;<strong>#{ Utils.removeEmoji(log.title) or "log" }</strong>"
       cancelText: "Cancel"
 
       destructiveButtonClicked: ->
