@@ -71,7 +71,7 @@
   StatusBar.styleLightContent() if window.StatusBar
 
 
-@App.controller "LogController", ($scope, $ionicModal, $stateParams, $timeout, $animate, Config, Logs, Squares) ->
+@App.controller "LogController", ($scope, $ionicModal, $ionicPopup, $stateParams, $timeout, $animate, Config, Logs, Squares) ->
 
   # Load or initialize logs and squares
   $scope.logs = Logs.all()
@@ -199,7 +199,13 @@
 
   $scope.displayCounting = (square) ->
     value = square.value
-    return if value < 0
+
+    if value < 0
+      # Show help
+      $ionicPopup.show
+        title: "Hold & drag to score a day"
+        buttons: [ { text: "OK", type: "button-clear button-positive" } ]
+      return
 
     content = "#{ value }<sub> / #{ $scope.log.maxValue }</sub>"
     counter = angular.element(document.getElementById("counter"))
