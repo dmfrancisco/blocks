@@ -306,8 +306,12 @@
   .date-ref {
     text-transform: uppercase;
     padding-left: 7px;
-    opacity: 0.3;
+    opacity: 0.35;
     font-size: 75%;
+
+    &.secondary {
+      opacity: 0.15;
+    }
   }
 }
 

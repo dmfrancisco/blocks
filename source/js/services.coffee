@@ -204,16 +204,21 @@
     dayOfWeek = date.getDay()
     dayOfMonth = date.getDate()
 
+    template = (text, cssClass = "") ->
+      return "<span class='date-ref #{ cssClass }'>#{ text }</span>"
+
     if dayOfMonth is 1 and date.getMonth() is 0
-      return date.getFullYear()
+      return template date.getFullYear()
     else if dayOfMonth is 1
-      return Utils.monthsShort[date.getMonth()]
+      return template Utils.monthsShort[date.getMonth()]
     else if dayOfWeek is 1 and weekNo is 0
-      return "M"
+      return template "M"
     else if dayOfWeek is 3 and weekNo is 0
-      return "W"
+      return template "W"
     else if dayOfWeek is 5 and weekNo is 0
-      return "F"
+      return template "F"
+    else if dayOfWeek is 0
+      return template(dayOfMonth, "secondary")
     return ""
 
   # Fill the squares with additional data: date refs, log values and colors
