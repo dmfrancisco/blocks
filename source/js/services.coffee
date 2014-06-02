@@ -91,8 +91,8 @@
 
   # Sounds used in the application
   obj.sounds = {
-    created:   new Howl(urls: ["sounds/qurazy_quoin.mp3"])
-    destroyed: new Howl(urls: ["sounds/friend_exits.mp3"])
+    created:   new Howl(urls: ["sounds/poppyup-glass.mp3"])
+    destroyed: new Howl(urls: ["sounds/bottle-pipe.mp3"])
   }
 
   # Number of weeks the app displays
