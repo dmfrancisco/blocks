@@ -210,7 +210,7 @@
 
 /* New and edit views */
 
-.log-form {
+#new-log, #edit-log, .log-form {
   &, .bar-header {
     background: #eee;
   }
@@ -272,7 +272,7 @@
     }
     .item-content,
     .input:checked ~ .item-content {
-      background: transparent !important;
+      background: transparent;
     }
     .radio-icon {
       // Display icon on the left instead of the right (default)
