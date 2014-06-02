@@ -10,15 +10,15 @@
   # Load themes (for the new form)
   $scope.themes = Config.themes
 
-  # Create and load the modal
+  # Initialize and load the creation modal
   $ionicModal.fromTemplateUrl("logs/new.html", ((modal) ->
-      $scope.logModal = modal
+      $scope.newLogModal = modal
     ),
     scope: $scope
     animation: "custom-slide-in-up"
   )
 
-  # Called when the form is submitted
+  # Called when the creation form is submitted
   $scope.createLog = (log) ->
     # If the user didn't filled the title, use the placeholder value
     log.title = $scope.randomPlaceholder unless log.title
@@ -30,12 +30,12 @@
 
     # Play a sound and hide the modal
     Config.sounds.created.play()
-    $scope.logModal.hide()
+    $scope.newLogModal.hide()
 
   # Open the new log modal
   $scope.newLog = ->
     # Display the modal
-    $scope.logModal.show()
+    $scope.newLogModal.show()
 
     # Pre-fill the form fields
     $scope.randomPlaceholder = Utils.genRandomPlaceholder(Config.titlePlaceholders)
@@ -45,9 +45,35 @@
     # To improve the animation, call complete after some delay
     $scope.$broadcast("scroll.refreshComplete")
 
-  # Edit log
+  # Close the new log modal
+  $scope.closeNewLog = ->
+    $scope.newLogModal.hide()
+
+
+  # Initialize and load the creation modal
+  $ionicModal.fromTemplateUrl("logs/edit.html", ((modal) ->
+      $scope.editLogModal = modal
+    ),
+    scope: $scope
+    animation: "custom-slide-in-up"
+  )
+
+  # Called when the edition form is submitted
   $scope.updateLog = (log) ->
-    # TODO
+    $scope.editLogModal.hide()
+
+  # Edit log
+  $scope.editLog = (log) ->
+    # Display the modal
+    $scope.log = log
+    $scope.editLogModal.show()
+    Logs.save($scope.logs)
+
+  # Close the new log modal
+  $scope.closeEditLog = ->
+    $scope.editLogModal.hide()
+    Logs.save($scope.logs)
+
 
   # Destroy log
   $scope.destroyLog = (log) ->
@@ -63,9 +89,6 @@
         Config.sounds.destroyed.play()
         return true
 
-  # Close the new log modal
-  $scope.closeNewLog = ->
-    $scope.logModal.hide()
 
   # Use the lightContent statusbar (light text, for dark backgrounds)
   StatusBar.styleLightContent() if window.StatusBar

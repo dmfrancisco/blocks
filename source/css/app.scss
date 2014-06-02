@@ -208,9 +208,9 @@
 }
 
 
-/* New view */
+/* New and edit views */
 
-#new-log {
+.log-form {
   &, .bar-header {
     background: #eee;
   }
@@ -271,8 +271,8 @@
       padding-right: 0;
     }
     .item-content,
-    .item-radio input:checked ~ .item-content {
-      background: transparent;
+    .input:checked ~ .item-content {
+      background: transparent !important;
     }
     .radio-icon {
       // Display icon on the left instead of the right (default)
@@ -408,12 +408,12 @@
   }
   .color-0, .color-1, .color-2, .color-3, .color-4, .color-5 {
     box-shadow: inset 0 0 0 1px #fff;
-    #new-log & { box-shadow: none; }
+    .log-form & { box-shadow: none; }
   }
   #stats {
     color: #ccc;
   }
-  #new-log & .color-1 {
+  .log-form & .color-1 {
     @include triangle-gradient(#f0f0f0, 0.6);
   }
 }

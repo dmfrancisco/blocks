@@ -1,33 +1,32 @@
 <!-- Translucid background for the status bar (iOS) -->
 <fade-bar></fade-bar>
 
-<!-- Log new view -->
-<div id="new-log" class="modal log-form">
+<!-- Log edit view -->
+<div id="edit-log" class="modal log-form">
   <ion-header-bar class="bar-secondary">
-    <h1 class="title">add new</h1>
+    <h1 class="title">change log</h1>
     <button class="button button-clear button-dark button-icon ion-close-circled"
-      ng-click="closeNewLog()"></button>
+      ng-click="closeEditLog()"></button>
   </ion-header-bar>
 
   <ion-content>
-    <form ng-submit="createLog(log)">
+    <form ng-submit="updateLog(log)">
       <div class="list list-inset">
 
         <!-- Title -->
         <div class="item item-divider">
-          Give a name to the log
+          Change the name of the log
         </div>
         <label class="item item-input">
           <i class="icon ion-ios7-circle-outline placeholder-icon"></i>
-          <input type="text" placeholder="{{randomPlaceholder}}" ng-model="log.title"
-            autocapitalize="off" autocorrect="off">
+          <input type="text" ng-model="log.title" autocapitalize="off" autocorrect="off">
         </label>
 
         <br />
 
         <!-- Colors -->
         <div class="item item-divider">
-          And choose a color theme
+          And choose the color theme
         </div>
         <label class="item item-radio" ng-repeat="theme in themes" data-theme="{{theme.id}}">
           <input type="radio" name="group" ng-model="log.themeId" ng-value="theme.id">
@@ -42,7 +41,7 @@
 
       <div class="padding">
         <button type="submit" class="button button-block button-dark">
-          Create
+          Update
         </button>
       </div>
     </form>
