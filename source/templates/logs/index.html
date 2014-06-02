@@ -4,7 +4,8 @@
   <fade-bar></fade-bar>
 
   <ion-content>
-    <ion-refresher pulling-icon="" refreshing-icon="" on-refresh="newLog()" pulling-text="add new">
+    <ion-refresher on-refresh="newLog()" pulling-text="add new"
+      ng-class="logs.length ? 'simple' : 'initial'">
     </ion-refresher>
 
     <ion-list class="list">
@@ -21,5 +22,9 @@
           </ion-option-button>
       </ion-item>
     </ion-list>
+
+    <div ng-if="logs.length == 0" class="blank-slate">
+      Pull to begin!
+    </div>
   </ion-content>
 </ion-view>

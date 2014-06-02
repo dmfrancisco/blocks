@@ -45,14 +45,38 @@
   }
 
   // The pull to add new button
-  .scroll-refresher .ionic-refresher-content {
-    .text-refreshing, .text-pulling {
-      font-size: 32px;
-    }
-  }
   .scroll-refresher {
     top: -75px;
     left: 68px;
+
+    .ionic-refresher-content {
+      text-align: left;
+      .text-refreshing, .text-pulling {
+        font-size: 32px;
+      }
+    }
+
+    &.initial .icon-pulling {
+      text-align: center;
+      position: fixed;
+      top: 60px;
+      left: -68px;
+      right: 0;
+    }
+    &.simple .icon-pulling {
+      display: none;
+    }
+  }
+
+  .blank-slate {
+    margin: 60px 0;
+    text-align: center;
+    color: $scroll-refresh-icon-color;
+
+    .ng-enter {
+      opacity: 0;
+      @include animation(0.5s bounceIn 1s);
+    }
   }
 
   .item {
@@ -82,7 +106,6 @@
   .item-options .button {
     max-height: initial;
   }
-  .scroll-refresher .ionic-refresher-content,
   .bar .title {
     text-align: left;
   }
