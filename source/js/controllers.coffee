@@ -137,7 +137,9 @@
     x1 = 0.8 * Math.sqrt(Math.pow(screenW, 2) + Math.pow(screenH, 2)) / 2
     maxValue = 100
 
-    if radius < 40
+    if radius == 0 and e.type == "hold"
+      value = $scope.square.value
+    else if radius < 40
       value = -1
     else if radius > x1
       value = maxValue
