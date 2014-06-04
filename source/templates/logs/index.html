@@ -8,18 +8,20 @@
       ng-class="logs.length ? 'simple' : 'initial'">
     </ion-refresher>
 
-    <ion-list class="list">
+    <ion-list ng-class="logs.length ? 'has-content' : ''">
       <ion-item ng-repeat="log in logs" ng-href="#/app/log/{{$index}}"
         class="item-icon-left log-item" data-theme="{{log.themeId}}">
           <i class="icon ion-record dot"></i>
-          {{log.title}}
+          <div class="log-text">{{log.title}}</div>
 
-          <ion-option-button class="button-clear button-positive" ng-click="editLog(log)">
-            <i class="icon ion-edit"></i>
-          </ion-option-button>
-          <ion-option-button class="button-clear button-assertive" ng-click="destroyLog(log)">
-            <i class="icon ion-android-trash"></i>
-          </ion-option-button>
+          <div class="item-options">
+            <a class="button button-clear button-positive" ng-click="editLog(log)">
+              <i class="icon ion-edit"></i>
+            </a>
+            <a class="button button-clear button-assertive" ng-click="destroyLog(log)">
+              <i class="icon ion-android-trash"></i>
+            </a>
+          </div>
       </ion-item>
     </ion-list>
 

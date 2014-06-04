@@ -82,7 +82,7 @@
   }
   100% {
     opacity: 0;
-    height: 0;
+    height: 1px;
     @include transform(translateX(-2000px));
   }
 }
