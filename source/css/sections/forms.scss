@@ -1,0 +1,85 @@
+/* New and edit views */
+
+#new-log, #edit-log, .log-form {
+  &, .bar-header {
+    background: #eee;
+  }
+  .bar-header {
+    border-bottom: 1px solid #ddd;
+  }
+
+  // Move the rounded edges to below the status bar
+  .platform-ios7 & {
+    top: 20px;
+    .bar-header {
+      top: -20px;
+    }
+    .scroll-content {
+      top: 44px;
+    }
+  }
+
+  // Add rounded edges to the modal
+  border-radius: 4px 4px 0 0;
+
+  // Keep border-radius when the user drags the list
+  // (more info: http://stackoverflow.com/a/23735445/543293)
+  overflow: hidden;
+  -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+
+  .title, .button {
+    padding-top: 1px; // Improve alignment (optional)
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    @include font-smoothing(antialiased);
+  }
+  input {
+    font-size: 32px;
+    line-height: 36px;
+    height: auto;
+    background: transparent;
+  }
+  .placeholder-icon {
+    font-size: 23px;
+  }
+  .item-content {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .item, .item input {
+    padding-left: 13px;
+  }
+  .item-divider {
+    padding-left: 52px;
+    font-weight: normal;
+    color: #ccc;
+    letter-spacing: 0;
+  }
+  .item-radio {
+    .item-content {
+      padding-left: 37px;
+      padding-right: 0;
+    }
+    .item-content,
+    .input:checked ~ .item-content {
+      background: transparent;
+    }
+    .radio-icon {
+      // Display icon on the left instead of the right (default)
+      left: 0;
+    }
+    .row {
+      padding: 3px;
+
+      // Disable click events in order to be able to click the close icon
+      pointer-events: none;
+    }
+  }
+  .color {
+    height: 37px;
+  }
+  .scroll {
+    // Minor improvement for the iPhone 5 screen (optional)
+    padding-top: 2px;
+  }
+}

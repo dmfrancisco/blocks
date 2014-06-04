@@ -1,0 +1,38 @@
+#counter {
+  position: absolute;
+  z-index: 9001;
+  pointer-events: none;
+
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  display: none;
+  @include transition(background-color 250ms ease-in-out);
+
+  &.zoom-in {
+    @include animation(250ms zoomIn ease-out);
+  }
+  &.zoom-out {
+    opacity: 0;
+    @include animation(100ms zoomOut ease-out);
+  }
+  &.bounce {
+    @include animation(100ms bounce ease-out);
+  }
+  sub {
+    font-size: 55%;
+    opacity: 0.5;
+  }
+}
+
+#stats {
+  position: absolute;
+  top: 160px;
+  left: 0;
+  right: 0;
+
+  text-transform: uppercase;
+  letter-spacing: 0;
+  text-align: center;
+}

@@ -1,0 +1,51 @@
+/* Show view */
+
+#log {
+  // This view must be above the index view, even during transitions
+  z-index: 2;
+
+  .bar {
+    top: 40px;
+    left: 20px;
+    background: transparent;
+    border: transparent;
+
+    .platform-ios7 & {
+      top: 25px;
+    }
+  }
+  .bar .title + .button:last-child {
+    // Replace the close icon
+    right: 35px;
+  }
+  .bar .title {
+    font-size: 26px;
+    text-align: left;
+    margin-right: 35px; // Overflowing text will be replaced by ellipsis
+  }
+  .has-header {
+    top: 0;
+  }
+  .row {
+    // Fixes a strange mismatch between the right and left on the iPhone
+    // It may be related to the width being fluid (percentage)
+    padding: 0 4px 5px 4px;
+  }
+  .scroll-bar {
+    margin-top: 120px;
+  }
+  .scroll-content {
+    padding: 120px 10px 10px;
+
+    // Keep the calendar above the header
+    z-index: 1000;
+
+    // Disable click events in order to be able to click the close icon
+    pointer-events: none;
+  }
+  .scroll {
+    // Restore click events, only in the calendar
+    pointer-events: auto;
+    padding-bottom: 130px;
+  }
+}

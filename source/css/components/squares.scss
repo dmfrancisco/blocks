@@ -1,0 +1,135 @@
+.day {
+  // Make the cells square
+  height: 0;
+  padding: 0;
+  padding-bottom: 14%;
+
+  .date-ref {
+    text-transform: uppercase;
+    padding-left: 7px;
+    opacity: 0.35;
+    font-size: 75%;
+
+    &.secondary {
+      opacity: 0.15;
+    }
+  }
+}
+
+.theme {
+  .fade-bar {
+    background: transparent;
+    box-shadow: inset 0 10px 10px;
+  }
+  .scroll .row:first-child {
+    // Simple shadow around the calendar to simulate a fading header on scroll
+    box-shadow: 0 0 30px;
+  }
+}
+
+@mixin triangle-gradient($color, $percent) {
+  @include linear-gradient(135deg, rgba($color,1) 0%, rgba($color,1) 50%,
+    rgba($color,$percent) 50%, rgba($color,$percent) 100%);
+}
+
+@mixin theme($emptyColor, $color1, $color2, $color3, $color4, $color5, $dotColor, $titleColor, $closeColor, $bgdColor, $percent) {
+  &.theme {
+    background-color: $bgdColor;
+  }
+  .day, #counter.stable {
+    background-color: rgba($bgdColor, 0.5);
+  }
+  #counter {
+    background-color: rgba($bgdColor, 0.1);
+  }
+  &.theme, .fade-bar, .icon-refreshing {
+    color: $bgdColor; // Default color for the box shadows
+  }
+
+  .color-0 {
+    @include triangle-gradient($emptyColor, $percent);
+    box-shadow: inset -1px -1px 0 rgba($bgdColor, .07);
+  }
+  .color-1 {
+    @include triangle-gradient($color1, $percent);
+  }
+  .color-2 {
+    @include triangle-gradient($color2, $percent);
+  }
+  .color-3 {
+    @include triangle-gradient($color3, $percent);
+  }
+  .color-4 {
+    @include triangle-gradient($color4, $percent);
+  }
+  .color-5 {
+    @include triangle-gradient($color5, $percent);
+  }
+  .color-1, .color-2, .color-3, .color-4, .color-5 {
+    background-color: $bgdColor !important;
+  }
+
+  .color-bgd {
+    background-color: $bgdColor;
+  }
+  #stats {
+    color: $emptyColor;
+  }
+  .dot {
+    color: $dotColor !important;
+  }
+  .close {
+    color: $closeColor !important;
+  }
+  .title, #counter {
+    color: $titleColor;
+  }
+}
+
+[data-theme="ruby"] {
+  @include theme(#586e75, #fff, #f2c0bf, #d98786, #d8514e, #dc322f, #dc322f, #fff, #839496, #002b36, 0.8);
+}
+
+[data-theme="purple"] {
+  @include theme(#aeaea9, #fff, #c29ed4, #9b6aaf, #8e44ad, #6f229b, #8e44ad, #fff, #aeaea9, #443737, 0.8);
+}
+
+[data-theme="sulek"] {
+  @include theme(#586e75, #95a5a6, #f1c40f, #e67e22, #e74c3c, #d0021b, #f1c40f, #fff, #95a5a6, #2c3e50, 0.8);
+}
+
+[data-theme="octocat"] {
+  @include theme(#f0f0f0, #ccc, #d6e685, #8cc665, #44a340, #1e6823, #44a340, #000, #000, #fff, 0.8);
+
+  .scroll .row:first-child {
+    // Simple shadow around the calendar to simulate a fading header on scroll
+    box-shadow: 0 -5px 15px #fff, 0 -10px 20px #fff, 0 -20px 30px #fff;
+  }
+  .day {
+    background-color: #fff;
+  }
+  .day .date-ref,
+  .day .date-ref.secondary {
+    opacity: 1;
+  }
+  .day.color-0 .date-ref,
+  .day.color-0 .date-ref.secondary {
+    color: #ccc;
+  }
+  .color-0, .color-1, .color-2, .color-3, .color-4, .color-5 {
+    box-shadow: inset 0 0 0 1px #fff;
+    .log-form & { box-shadow: none; }
+  }
+  #counter.stable {
+    background-color: rgba(#ccc, 0.5);
+  }
+  #counter {
+    background-color: rgba(#ccc, 0.1);
+  }
+  #stats {
+    color: #ccc;
+  }
+  .log-form & .color-1 {
+    @include triangle-gradient(#f0f0f0, 0.6);
+  }
+}
