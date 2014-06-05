@@ -1,5 +1,5 @@
 # Allow scripts to be included in any order
-@App ||= angular.module("blocks", ["ionic"])
+@App ||= angular.module("blocks", ["ionic", "pouchdb"])
 
 
 # Utility methods
