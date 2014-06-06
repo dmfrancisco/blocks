@@ -3,17 +3,53 @@
 
 
 # The Logs factory handles saving and loading logs from local storage
-@App.factory "Logs", ->
+@App.factory "Logs", (pouchdb) ->
+  db = pouchdb.create("logr-db")
+  cache = { logs: [], logsById: {} }
   obj = {}
 
-  obj.all = ->
-    logString = window.localStorage.logs
-    return angular.fromJson(logString) if logString
-    return []
+  obj.all = ($scope) ->
+    $scope.logs ||= cache.logs
 
-  obj.save = (logs) ->
-    window.localStorage.logs = angular.toJson(logs)
-    return
+    db.allDocs(include_docs: true).then (response) ->
+      cache.logs = []
+      angular.forEach response.rows, (row) ->
+        cache.logs.push(row.doc)
+        cache.logsById[row.doc._id] = row.doc
+      $scope.logs = cache.logs
+    .catch (error) ->
+      console.log error
+
+    return true
+
+  obj.all(cache)
+
+  obj.get = ($scope, id, callback) ->
+    $scope.log = cache.logsById[id] || $scope.log
+    db.get(id).then callback
+
+  obj.create = ($scope, log) ->
+    log.position = $scope.logs.length
+
+    db.post(log).then (response) ->
+      log._id = response.id
+      log._rev = response.rev
+      $scope.logs.push log
+    .catch (error) ->
+      console.log error
+
+  obj.update = ($scope, log) ->
+    db.put(log).then (response) ->
+      log._rev = response.rev
+    .catch (error) ->
+      console.log error
+
+  obj.remove = ($scope, log) ->
+    db.remove(log).then (response) ->
+      index = $scope.logs.indexOf(log)
+      $scope.logs.splice(index, 1)
+    .catch (error) ->
+      console.log error
 
   obj.newLog = (logTitle, logThemeId) ->
     return {

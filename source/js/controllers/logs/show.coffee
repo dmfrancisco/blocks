@@ -4,16 +4,6 @@
 
 @App.controller "LogController", ($scope, $ionicModal, $ionicPopup, $stateParams, $timeout, $animate, Config, Logs, Squares) ->
 
-  # Load or initialize logs and squares
-  $scope.logs = Logs.all()
-  $scope.log = $scope.logs[$stateParams.id]
-  $scope.squares = Squares.init(Config.initialWeeks)
-  $scope.hasMoreData = true
-
-  # Update the squares asynchronously
-  $timeout ->
-    Squares.setProperties($scope.log, $scope.squares, 0, Config.initialWeeks)
-
   loadMore = ->
     $timeout ->
       $scope.squares = Squares.init(Config.totalWeeks)
@@ -21,11 +11,29 @@
       $scope.hasMoreData = false
     , 2000
 
-  loadMore()
-
   setValue = (date, value) ->
     Logs.setValue($scope.log, date, value)
     Squares.setProperties($scope.log, $scope.squares, 0, Config.totalWeeks)
+
+
+  $scope.squares = Squares.init(Config.initialWeeks)
+  $scope.hasMoreData = true
+
+  $scope.log = {
+    maxValue: 0
+    themeId: "ruby"
+    title: "loading..."
+  }
+
+  # Load or initialize logs and squares
+  Logs.get $scope, $stateParams.id, (log) ->
+    $scope.log = log
+
+    # Update the squares asynchronously
+    $timeout ->
+      Squares.setProperties($scope.log, $scope.squares, 0, Config.initialWeeks)
+
+    loadMore()
 
   $scope.displayCounter = (e, $scope) ->
     date = $scope.square.date
@@ -117,7 +125,7 @@
     if Config.dirty.shouldSave == false and Config.dirty.counterValue != null
       setValue(date, Config.dirty.counterValue)
     else
-      Logs.save($scope.logs)
+      Logs.update($scope, $scope.log)
 
     # Clear dirty attributes
     Config.dirty.counterValue = null

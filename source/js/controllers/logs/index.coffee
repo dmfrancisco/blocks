@@ -3,9 +3,8 @@
 
 
 @App.controller "LogIndexController", ($scope, $ionicModal, $ionicActionSheet, $timeout, Config, Utils, Logs) ->
-
   # Load or initialize logs
-  $scope.logs = Logs.all()
+  Logs.all($scope)
 
   # Load themes (for the new form)
   $scope.themes = Config.themes
@@ -25,8 +24,7 @@
 
     # Create the log
     newLog = Logs.newLog(log.title, log.themeId)
-    $scope.logs.push newLog
-    Logs.save $scope.logs
+    Logs.create($scope, newLog)
 
     # Play a sound and hide the modal
     Config.sounds.created.play()
@@ -61,18 +59,12 @@
   # Called when the edition form is submitted
   $scope.updateLog = (log) ->
     $scope.editLogModal.hide()
+    Logs.update($scope, log)
 
   # Edit log
   $scope.editLog = (log) ->
-    # Display the modal
     $scope.log = log
     $scope.editLogModal.show()
-    Logs.save($scope.logs)
-
-  # Close the new log modal
-  $scope.closeEditLog = ->
-    $scope.editLogModal.hide()
-    Logs.save($scope.logs)
 
 
   # Destroy log
@@ -82,10 +74,7 @@
       cancelText: "Cancel"
 
       destructiveButtonClicked: ->
-        index = $scope.logs.indexOf(log)
-        $scope.logs.splice(index, 1)
-        Logs.save($scope.logs)
-
+        Logs.remove($scope, log)
         Config.sounds.destroyed.play()
         return true
 
