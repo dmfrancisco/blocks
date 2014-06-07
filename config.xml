@@ -23,6 +23,9 @@
     -->
     <preference name="BackupWebStorage" value="none" />
 
+    <!-- The splash screen is hidden manually after loading -->
+    <preference name="AutoHideSplashScreen" value="false" />
+
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
     </feature>

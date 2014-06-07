@@ -28,19 +28,17 @@
 
 
 # Run the application
-@App.run ($ionicPlatform) ->
+@App.run ($ionicPlatform, $timeout, Logs) ->
   $ionicPlatform.ready ->
-    # Hide the accessory bar by default (remove this to show the
-    # accessory bar above the keyboard for form inputs)
-    if window.cordova and window.cordova.plugins.Keyboard
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true)
+    Logs.all null, ->
+      # Hide the splash screen (wait 500ms for animations to end)
+      $timeout (-> navigator.splashscreen.hide() if navigator.splashscreen), 500
 
-    if window.StatusBar
-      StatusBar.styleLightContent()
-      StatusBar.show()
+      # Hide the accessory bar by default (remove this to show the
+      # accessory bar above the keyboard for form inputs)
+      if window.cordova and window.cordova.plugins.Keyboard
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true)
 
-
-# Wait for Cordova to load
-document.addEventListener("deviceready", (->
-  navigator.splashscreen.hide()
-), false)
+      if window.StatusBar
+        StatusBar.styleLightContent()
+        StatusBar.show()
