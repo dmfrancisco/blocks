@@ -4,20 +4,7 @@
 
 @App.controller "LogController", ($scope, $ionicModal, $ionicPopup, $stateParams, $timeout, $animate, Config, Logs, Squares) ->
 
-  loadMore = ->
-    $timeout ->
-      $scope.squares = Squares.init(Config.totalWeeks)
-      Squares.setProperties($scope.log, $scope.squares, 0, Config.totalWeeks)
-      $scope.hasMoreData = false
-    , 2000
-
-  setValue = (date, value) ->
-    Logs.setValue($scope.log, date, value)
-    Squares.setProperties($scope.log, $scope.squares, 0, Config.totalWeeks)
-
-
-  $scope.squares = Squares.init(Config.initialWeeks)
-  $scope.hasMoreData = true
+  $scope.squares = Squares.init(Config.totalWeeks)
 
   $scope.log = {
     maxValue: 0
@@ -26,14 +13,12 @@
   }
 
   # Load or initialize logs and squares
-  Logs.get $scope, $stateParams.id, (log) ->
-    $scope.log = log
+  Logs.get $scope, $stateParams.id, ->
+    Squares.setProperties($scope.log, $scope.squares, 0, Config.totalWeeks)
 
-    # Update the squares asynchronously
-    $timeout ->
-      Squares.setProperties($scope.log, $scope.squares, 0, Config.initialWeeks)
-
-    loadMore()
+  setValue = (date, value) ->
+    Logs.setValue($scope.log, date, value)
+    Squares.setProperties($scope.log, $scope.squares, 0, Config.totalWeeks)
 
   $scope.displayCounter = (e, $scope) ->
     date = $scope.square.date
