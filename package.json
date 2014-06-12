@@ -1,7 +1,7 @@
 {
-  "name": "logr",
+  "name": "blocks",
   "version": "0.0.1",
-  "description": "An app for people interested in gathering knowledge and making experiences for self-improvement.",
+  "description": "An app for people interested in gathering self-knowledge",
   "devDependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",

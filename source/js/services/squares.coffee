@@ -1,5 +1,5 @@
 # Allow scripts to be included in any order
-@App ||= angular.module("logr", ["ionic"])
+@App ||= angular.module("blocks", ["ionic"])
 
 
 # The Squares factory has the logic necessary to render the squares for a log

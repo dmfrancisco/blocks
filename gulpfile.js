@@ -58,7 +58,7 @@ gulp.task('templates', function () {
   return gulp.src(paths.templates)
     .pipe(angularTemplates({
       filename: "templates.js",
-      module: "logr"
+      module: "blocks"
     }))
     .pipe(gulp.dest('./www/'));
 });

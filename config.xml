@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Logr</name>
+    <name>Blocks</name>
 
     <description>
-      An app for people interested in gathering knowledge and
-      making experiences for self-improvement.
+      An app for people interested in gathering self-knowledge.
       Good for quantified-self researchers.
     </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+
+    <author email="blocks@dmfranc.com" href="http://blocks.dmfranc.com/">
+      David Francisco
     </author>
 
     <content src="index.html" />

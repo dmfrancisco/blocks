@@ -1,5 +1,5 @@
 # Allow scripts to be included in any order
-@App ||= angular.module("logr", ["ionic"])
+@App ||= angular.module("blocks", ["ionic"])
 
 
 @App.controller "LogIndexController", ($scope, $ionicModal, $ionicActionSheet, $timeout, Config, Utils, Logs) ->
