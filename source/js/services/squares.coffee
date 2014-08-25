@@ -8,8 +8,8 @@
 
   # Initialize the squares with filled dates and binary colors
   obj.init = (totalWeeks = Config.totalWeeks, squares = []) ->
-    today = new Date()
-    lastDayOfWeek = new Date()
+    today = Config.startDate()
+    lastDayOfWeek = Config.startDate()
     lastDayOfWeek.setDate(today.getDate() - today.getDay() + 6)
     currentDay = lastDayOfWeek
 
@@ -27,7 +27,7 @@
     return squares
 
   getDateRef = (date, weekNo) ->
-    return "" if date > new Date()
+    return "" if date > Config.startDate()
 
     dayOfWeek = date.getDay()
     dayOfMonth = date.getDate()
@@ -60,7 +60,7 @@
     Logs.getValue(log, square.date)
 
   getColor = (log, square) ->
-    return "" if square.date > new Date()
+    return "" if square.date > Config.startDate()
 
     value = square.value
     return "color-1" if value == 0

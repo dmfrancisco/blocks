@@ -22,7 +22,7 @@
 
   $scope.displayCounter = (e, $scope) ->
     date = $scope.square.date
-    return if date > new Date() or $scope.hasMoreData
+    return if date > Config.startDate() or $scope.hasMoreData
 
     # Disable scroll
     e.gesture.srcEvent.preventDefault()

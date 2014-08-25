@@ -15,6 +15,9 @@
     "color-5"
   ]
 
+  obj.startDate = ->
+    new Date()
+
   # Property to save temporary dirty properties
   obj.dirty = {}
 
