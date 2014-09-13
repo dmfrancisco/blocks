@@ -4,6 +4,8 @@ Blocks
 An app for people interested in gathering knowledge and making experiences for self-improvement.
 Good for quantified-self researchers.
 
+![Screenshot](http://dmfranc.com/assets/blocks/blocks-readme.png)
+
 To initialize the project, run:
 
 ```bash
